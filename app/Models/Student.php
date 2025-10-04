@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
@@ -20,8 +21,8 @@ class Student extends Model
         'first_name',
         'middle_name',
         'last_name',
-        'grade_level',
-        'section',
+    'grade_level_id',
+    'section_id',
         'contact_number',
         'email',
         'parent_name',
@@ -36,13 +37,30 @@ class Student extends Model
      *
      * @var array<string, string>
      */
+    protected $appends = [
+        'grade_level_name',
+        'section_name',
+    ];
+
     protected function casts(): array
     {
         return [
+            'grade_level_id' => 'integer',
+            'section_id' => 'integer',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
             'deleted_at' => 'datetime',
         ];
+    }
+
+    public function gradeLevel(): BelongsTo
+    {
+        return $this->belongsTo(GradeLevel::class);
+    }
+
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(Section::class);
     }
 
     /**
@@ -80,7 +98,11 @@ class Student extends Model
      */
     public function getExpectedFeesAttribute(): float
     {
-        return FeeStructure::where('grade_level', $this->grade_level)
+        if (!$this->grade_level_id) {
+            return 0.0;
+        }
+
+        return FeeStructure::where('grade_level_id', $this->grade_level_id)
             ->where('is_active', true)
             ->sum('amount');
     }
@@ -124,7 +146,14 @@ class Student extends Model
      */
     public function scopeGradeLevel($query, $gradeLevel)
     {
-        return $query->where('grade_level', $gradeLevel);
+        if (is_numeric($gradeLevel)) {
+            return $query->where('grade_level_id', (int) $gradeLevel);
+        }
+
+        return $query->whereHas('gradeLevel', function ($relation) use ($gradeLevel) {
+            $relation->where('slug', $gradeLevel)
+                ->orWhere('name', $gradeLevel);
+        });
     }
 
     /**
@@ -132,7 +161,14 @@ class Student extends Model
      */
     public function scopeSection($query, $section)
     {
-        return $query->where('section', $section);
+        if (is_numeric($section)) {
+            return $query->where('section_id', (int) $section);
+        }
+
+        return $query->whereHas('section', function ($relation) use ($section) {
+            $relation->where('slug', $section)
+                ->orWhere('name', $section);
+        });
     }
 
     /**
@@ -147,6 +183,16 @@ class Student extends Model
                 ->orWhereRaw("CONCAT(first_name, ' ', last_name) like ?", ["%{$search}%"])
                 ->orWhereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) like ?", ["%{$search}%"]);
         });
+    }
+
+    public function getGradeLevelNameAttribute(): ?string
+    {
+        return $this->gradeLevel?->name;
+    }
+
+    public function getSectionNameAttribute(): ?string
+    {
+        return $this->section?->name;
     }
 
     /**

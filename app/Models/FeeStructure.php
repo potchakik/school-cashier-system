@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FeeStructure extends Model
 {
@@ -15,12 +16,13 @@ class FeeStructure extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'grade_level',
+        'grade_level_id',
         'fee_type',
         'amount',
         'school_year',
-        'description',
-        'is_active',
+    'description',
+    'is_required',
+    'is_active',
     ];
 
     /**
@@ -31,12 +33,18 @@ class FeeStructure extends Model
     protected function casts(): array
     {
         return [
+            'grade_level_id' => 'integer',
             'amount' => 'decimal:2',
+            'is_required' => 'boolean',
             'is_active' => 'boolean',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
     }
+
+    protected $appends = [
+        'grade_level_name',
+    ];
 
     /**
      * Scope a query to only include active fees
@@ -59,7 +67,24 @@ class FeeStructure extends Model
      */
     public function scopeGradeLevel($query, $gradeLevel)
     {
-        return $query->where('grade_level', $gradeLevel);
+        if (is_numeric($gradeLevel)) {
+            return $query->where('grade_level_id', (int) $gradeLevel);
+        }
+
+        return $query->whereHas('gradeLevel', function ($relation) use ($gradeLevel) {
+            $relation->where('slug', $gradeLevel)
+                ->orWhere('name', $gradeLevel);
+        });
+    }
+
+    public function gradeLevel(): BelongsTo
+    {
+        return $this->belongsTo(GradeLevel::class);
+    }
+
+    public function getGradeLevelNameAttribute(): ?string
+    {
+        return $this->gradeLevel?->name;
     }
 
     /**

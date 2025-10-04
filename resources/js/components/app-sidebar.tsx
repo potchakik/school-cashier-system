@@ -2,31 +2,16 @@ import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import gradeLevelRoutes from '@/routes/academics/grade-levels';
+import feeStructureRoutes from '@/routes/academics/fee-structures';
 import { dashboard } from '@/routes';
 import { index as paymentsIndex } from '@/routes/payments';
 import { index as studentsIndex } from '@/routes/students';
-import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
-import { BookOpen, CreditCard, Folder, LayoutGrid, Users } from 'lucide-react';
+import { type NavItem, type SharedData } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
+import { useMemo } from 'react';
+import { BookOpen, CreditCard, Folder, GraduationCap, LayoutGrid, Receipt, Users } from 'lucide-react';
 import AppLogo from './app-logo';
-
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Students',
-        href: studentsIndex(),
-        icon: Users,
-    },
-    {
-        title: 'Payments',
-        href: paymentsIndex(),
-        icon: CreditCard,
-    },
-];
 
 const footerNavItems: NavItem[] = [
     {
@@ -42,6 +27,46 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+    const { auth } = usePage<SharedData>().props;
+    const isAdmin = auth?.user?.role === 'admin';
+
+    const mainNavItems = useMemo<NavItem[]>(() => {
+        const items: NavItem[] = [
+            {
+                title: 'Dashboard',
+                href: dashboard(),
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Students',
+                href: studentsIndex(),
+                icon: Users,
+            },
+            {
+                title: 'Payments',
+                href: paymentsIndex(),
+                icon: CreditCard,
+            },
+        ];
+
+        if (isAdmin) {
+            items.push(
+                {
+                    title: 'Grade levels',
+                    href: gradeLevelRoutes.index(),
+                    icon: GraduationCap,
+                },
+                {
+                    title: 'Fee structures',
+                    href: feeStructureRoutes.index(),
+                    icon: Receipt,
+                },
+            );
+        }
+
+        return items;
+    }, [isAdmin]);
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
