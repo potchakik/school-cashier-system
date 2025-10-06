@@ -17,7 +17,7 @@ class SectionFactory extends Factory
     public function definition(): array
     {
         $gradeLevel = GradeLevel::factory();
-        $name = 'Section ' . strtoupper(fake()->unique()->randomLetter());
+        $name = strtoupper(fake()->unique()->randomLetter());
 
         return [
             'grade_level_id' => GradeLevel::exists() ? GradeLevel::inRandomOrder()->first()->id : $gradeLevel,

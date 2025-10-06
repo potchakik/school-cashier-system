@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\GradeLevel;
+use App\Models\Section;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,7 +17,15 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Student::query()->with(['payments']);
+        $query = Student::query()->with(['payments', 'gradeLevel', 'section']);
+
+        $perPageOptions = [10, 15, 25, 50];
+        $defaultPerPage = 15;
+        $perPage = $request->integer('per_page', $defaultPerPage);
+
+        if (! in_array($perPage, $perPageOptions, true)) {
+            $perPage = $defaultPerPage;
+        }
 
         // Search
         if ($request->filled('search')) {
@@ -42,7 +52,7 @@ class StudentController extends Controller
         $sortDirection = $request->get('sort_direction', 'desc');
         $query->orderBy($sortField, $sortDirection);
 
-        $students = $query->paginate(15)->withQueryString();
+    $students = $query->paginate($perPage)->withQueryString();
 
         // Add computed attributes
         $students->getCollection()->transform(function ($student) {
@@ -53,8 +63,8 @@ class StudentController extends Controller
                 'first_name' => $student->first_name,
                 'middle_name' => $student->middle_name,
                 'last_name' => $student->last_name,
-                'grade_level' => $student->grade_level,
-                'section' => $student->section,
+                'grade_level' => $student->grade_level_name ?? '—',
+                'section' => $student->section_name ?? '—',
                 'status' => $student->status,
                 'total_paid' => $student->total_paid,
                 'expected_fees' => $student->expected_fees,
@@ -64,15 +74,33 @@ class StudentController extends Controller
             ];
         });
 
-        // Get unique grade levels and sections for filters
-        $gradeLevels = Student::select('grade_level')->distinct()->pluck('grade_level');
-        $sections = Student::select('section')->distinct()->pluck('section');
+
+        // Get grade levels for filter
+        $gradeLevels = GradeLevel::query()
+            ->orderBy('display_order')
+            ->orderBy('name')
+            ->pluck('name');
+
+        // Get sections grouped by grade level for filter
+        $sectionsByGrade = GradeLevel::with(['sections' => function ($q) {
+            $q->orderBy('display_order')->orderBy('name');
+        }])
+        ->orderBy('display_order')
+        ->orderBy('name')
+        ->get()
+        ->mapWithKeys(function ($grade) {
+            return [$grade->name => $grade->sections->pluck('name')->all()];
+        })
+        ->toArray();
 
         return Inertia::render('students/index', [
             'students' => $students,
-            'filters' => $request->only(['search', 'grade_level', 'section', 'status']),
+            'filters' => $request->only(['search', 'grade_level', 'section', 'status', 'per_page']),
             'gradeLevels' => $gradeLevels,
-            'sections' => $sections,
+            'sectionsByGrade' => $sectionsByGrade,
+            'perPageOptions' => $perPageOptions,
+            'perPage' => $perPage,
+            'defaultPerPage' => $defaultPerPage,
         ]);
     }
 
@@ -81,10 +109,10 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $gradeLevels = [
-            'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6',
-            'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'
-        ];
+        $gradeLevels = GradeLevel::query()
+            ->orderBy('display_order')
+            ->orderBy('name')
+            ->pluck('name');
 
         return Inertia::render('students/create', [
             'gradeLevels' => $gradeLevels,
@@ -107,7 +135,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student->load(['payments.user']);
+    $student->load(['payments.user', 'gradeLevel', 'section']);
 
         $paymentHistory = $student->payments()->orderBy('payment_date', 'desc')->get();
 
@@ -119,8 +147,8 @@ class StudentController extends Controller
                 'first_name' => $student->first_name,
                 'middle_name' => $student->middle_name,
                 'last_name' => $student->last_name,
-                'grade_level' => $student->grade_level,
-                'section' => $student->section,
+                'grade_level' => $student->grade_level_name ?? '—',
+                'section' => $student->section_name ?? '—',
                 'contact_number' => $student->contact_number,
                 'email' => $student->email,
                 'parent_name' => $student->parent_name,
@@ -155,10 +183,10 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        $gradeLevels = [
-            'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6',
-            'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'
-        ];
+        $gradeLevels = GradeLevel::query()
+            ->orderBy('display_order')
+            ->orderBy('name')
+            ->pluck('name');
 
         return Inertia::render('students/edit', [
             'student' => $student,

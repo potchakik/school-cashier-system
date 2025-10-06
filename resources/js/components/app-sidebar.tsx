@@ -2,15 +2,15 @@ import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import gradeLevelRoutes from '@/routes/academics/grade-levels';
-import feeStructureRoutes from '@/routes/academics/fee-structures';
 import { dashboard } from '@/routes';
+import feeStructureRoutes from '@/routes/academics/fee-structures';
+import gradeLevelRoutes from '@/routes/academics/grade-levels';
 import { index as paymentsIndex } from '@/routes/payments';
 import { index as studentsIndex } from '@/routes/students';
-import { type NavItem, type SharedData } from '@/types';
+import { type NavGroup, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { useMemo } from 'react';
 import { BookOpen, CreditCard, Folder, GraduationCap, LayoutGrid, Receipt, Users } from 'lucide-react';
+import { useMemo } from 'react';
 import AppLogo from './app-logo';
 
 const footerNavItems: NavItem[] = [
@@ -30,8 +30,8 @@ export function AppSidebar() {
     const { auth } = usePage<SharedData>().props;
     const isAdmin = auth?.user?.role === 'admin';
 
-    const mainNavItems = useMemo<NavItem[]>(() => {
-        const items: NavItem[] = [
+    const mainNavGroups = useMemo<NavGroup[]>(() => {
+        const platformItems: NavItem[] = [
             {
                 title: 'Dashboard',
                 href: dashboard(),
@@ -49,22 +49,32 @@ export function AppSidebar() {
             },
         ];
 
+        const groups: NavGroup[] = [
+            {
+                title: 'Platform',
+                items: platformItems,
+            },
+        ];
+
         if (isAdmin) {
-            items.push(
-                {
-                    title: 'Grade levels',
-                    href: gradeLevelRoutes.index(),
-                    icon: GraduationCap,
-                },
-                {
-                    title: 'Fee structures',
-                    href: feeStructureRoutes.index(),
-                    icon: Receipt,
-                },
-            );
+            groups.push({
+                title: 'Academics',
+                items: [
+                    {
+                        title: 'Grade levels',
+                        href: gradeLevelRoutes.index(),
+                        icon: GraduationCap,
+                    },
+                    {
+                        title: 'Fee structures',
+                        href: feeStructureRoutes.index(),
+                        icon: Receipt,
+                    },
+                ],
+            });
         }
 
-        return items;
+        return groups;
     }, [isAdmin]);
 
     return (
@@ -82,7 +92,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain groups={mainNavGroups} />
             </SidebarContent>
 
             <SidebarFooter>

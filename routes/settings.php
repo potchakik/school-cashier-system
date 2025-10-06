@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Settings\FeeStructureController;
-use App\Http\Controllers\Settings\GradeLevelController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
+use App\Http\Controllers\Settings\FeeStructureController;
+use App\Http\Controllers\Settings\GradeLevelController;
 use App\Http\Controllers\Settings\SectionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,20 +24,22 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/appearance', function () {
         return Inertia::render('settings/appearance');
     })->name('appearance');
+});
 
-    Route::prefix('settings/academics')->name('academics.')->group(function () {
-        Route::get('grade-levels', [GradeLevelController::class, 'index'])->name('grade-levels.index');
-        Route::post('grade-levels', [GradeLevelController::class, 'store'])->name('grade-levels.store');
-        Route::put('grade-levels/{gradeLevel}', [GradeLevelController::class, 'update'])->name('grade-levels.update');
-        Route::delete('grade-levels/{gradeLevel}', [GradeLevelController::class, 'destroy'])->name('grade-levels.destroy');
+Route::middleware('auth')->prefix('academics')->name('academics.')->group(function () {
+    Route::redirect('/', '/academics/grade-levels')->name('home');
 
-        Route::post('sections', [SectionController::class, 'store'])->name('sections.store');
-        Route::put('sections/{section}', [SectionController::class, 'update'])->name('sections.update');
-        Route::delete('sections/{section}', [SectionController::class, 'destroy'])->name('sections.destroy');
+    Route::get('grade-levels', [GradeLevelController::class, 'index'])->name('grade-levels.index');
+    Route::post('grade-levels', [GradeLevelController::class, 'store'])->name('grade-levels.store');
+    Route::put('grade-levels/{gradeLevel}', [GradeLevelController::class, 'update'])->name('grade-levels.update');
+    Route::delete('grade-levels/{gradeLevel}', [GradeLevelController::class, 'destroy'])->name('grade-levels.destroy');
 
-        Route::get('fee-structures', [FeeStructureController::class, 'index'])->name('fee-structures.index');
-        Route::post('fee-structures', [FeeStructureController::class, 'store'])->name('fee-structures.store');
-        Route::put('fee-structures/{feeStructure}', [FeeStructureController::class, 'update'])->name('fee-structures.update');
-        Route::delete('fee-structures/{feeStructure}', [FeeStructureController::class, 'destroy'])->name('fee-structures.destroy');
-    });
+    Route::post('sections', [SectionController::class, 'store'])->name('sections.store');
+    Route::put('sections/{section}', [SectionController::class, 'update'])->name('sections.update');
+    Route::delete('sections/{section}', [SectionController::class, 'destroy'])->name('sections.destroy');
+
+    Route::get('fee-structures', [FeeStructureController::class, 'index'])->name('fee-structures.index');
+    Route::post('fee-structures', [FeeStructureController::class, 'store'])->name('fee-structures.store');
+    Route::put('fee-structures/{feeStructure}', [FeeStructureController::class, 'update'])->name('fee-structures.update');
+    Route::delete('fee-structures/{feeStructure}', [FeeStructureController::class, 'destroy'])->name('fee-structures.destroy');
 });

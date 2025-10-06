@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Pagination } from '@/components/pagination';
 import { Button } from '@/components/ui/button';
@@ -28,9 +28,13 @@ interface PageProps extends Record<string, unknown> {
         grade_level?: string;
         section?: string;
         status?: string;
+        per_page?: string;
     };
     gradeLevels: string[];
-    sections: string[];
+    sectionsByGrade: Record<string, string[]>;
+    perPageOptions: number[];
+    perPage: number;
+    defaultPerPage: number;
     auth: {
         user?: {
             can?: {
@@ -48,14 +52,39 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function StudentsIndex() {
-    const { students, filters, gradeLevels, sections, auth } = usePage<PageProps>().props;
+    const { students, filters, gradeLevels, sectionsByGrade, auth, perPageOptions, perPage: currentPerPage, defaultPerPage } =
+        usePage<PageProps>().props;
 
     const [search, setSearch] = useState<string>(filters.search ?? '');
     const [gradeLevel, setGradeLevel] = useState<string>(filters.grade_level ?? '');
     const [section, setSection] = useState<string>(filters.section ?? '');
     const [status, setStatus] = useState<string>(filters.status ?? '');
+    const [perPage, setPerPage] = useState<string>(filters.per_page ?? String(currentPerPage ?? defaultPerPage));
 
     const isFirstRender = useRef(true);
+
+    const allSections = useMemo(() => {
+        return Array.from(new Set(Object.values(sectionsByGrade ?? {}).flat()));
+    }, [sectionsByGrade]);
+
+    const filteredSections = useMemo(() => {
+        if (gradeLevel) {
+            return sectionsByGrade?.[gradeLevel] ?? [];
+        }
+
+        return allSections;
+    }, [allSections, gradeLevel, sectionsByGrade]);
+
+    useEffect(() => {
+        if (section && !filteredSections.includes(section)) {
+            setSection('');
+        }
+    }, [filteredSections, section]);
+
+    useEffect(() => {
+        const normalizedPerPage = filters.per_page ?? String(currentPerPage ?? defaultPerPage);
+        setPerPage(normalizedPerPage);
+    }, [currentPerPage, defaultPerPage, filters.per_page]);
 
     useEffect(() => {
         if (isFirstRender.current) {
@@ -71,6 +100,7 @@ export default function StudentsIndex() {
                         grade_level: gradeLevel || undefined,
                         section: section || undefined,
                         status: status || undefined,
+                        per_page: perPage || undefined,
                     },
                 }).url,
                 {},
@@ -83,14 +113,14 @@ export default function StudentsIndex() {
         }, 250);
 
         return () => clearTimeout(timeout);
-    }, [search, gradeLevel, section, status]);
+    }, [search, gradeLevel, section, status, perPage]);
 
     const clearFilters = () => {
         setSearch('');
         setGradeLevel('');
         setSection('');
         setStatus('');
-        router.get(indexStudents().url, {}, { preserveScroll: true, replace: true });
+        setPerPage(String(defaultPerPage));
     };
 
     const canCreateStudents = auth?.user?.can?.createStudents ?? false;
@@ -146,16 +176,26 @@ export default function StudentsIndex() {
 
                                 <div className="flex flex-col gap-2">
                                     <Label htmlFor="section-filter">Section</Label>
-                                    <Select value={section || undefined} onValueChange={(value) => setSection(value)}>
+                                    <Select
+                                        value={section || undefined}
+                                        onValueChange={(value) => setSection(value)}
+                                        disabled={gradeLevel ? filteredSections.length === 0 : allSections.length === 0}
+                                    >
                                         <SelectTrigger id="section-filter">
                                             <SelectValue placeholder="All sections" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {sections.map((sec) => (
-                                                <SelectItem key={sec} value={sec}>
-                                                    Section {sec}
+                                            {filteredSections.length > 0 ? (
+                                                filteredSections.map((sec) => (
+                                                    <SelectItem key={sec} value={sec}>
+                                                        Section {sec}
+                                                    </SelectItem>
+                                                ))
+                                            ) : (
+                                                <SelectItem value="" disabled>
+                                                    {gradeLevel ? 'No sections available' : 'No sections available'}
                                                 </SelectItem>
-                                            ))}
+                                            )}
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -184,11 +224,31 @@ export default function StudentsIndex() {
 
                         <DataTable columns={studentsColumns} data={students.data} />
 
-                        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-                            <div className="text-sm text-muted-foreground">
+                        <div className="flex flex-col items-center justify-between gap-4 md:flex-row md:items-center">
+                            <div className="text-sm text-muted-foreground text-center md:text-left">
                                 Showing <span className="font-medium text-foreground">{students.from ?? 0}</span> to{' '}
                                 <span className="font-medium text-foreground">{students.to ?? 0}</span> of{' '}
                                 <span className="font-medium text-foreground">{students.total ?? 0}</span> students
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Label htmlFor="rows-per-page" className="text-sm">
+                                    Rows per page
+                                </Label>
+                                <Select value={perPage || undefined} onValueChange={(value) => setPerPage(value)}>
+                                    <SelectTrigger id="rows-per-page" className="w-28">
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {perPageOptions.map((option) => {
+                                            const value = option.toString();
+                                            return (
+                                                <SelectItem key={value} value={value}>
+                                                    {option}
+                                                </SelectItem>
+                                            );
+                                        })}
+                                    </SelectContent>
+                                </Select>
                             </div>
                             <Pagination links={students.links} />
                         </div>

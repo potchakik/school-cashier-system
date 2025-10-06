@@ -63,7 +63,7 @@ class FeeStructureController extends Controller
             ->orderByDesc('school_year')
             ->pluck('school_year');
 
-        return Inertia::render('settings/academics/fee-structures/index', [
+    return Inertia::render('academics/fee-structures/index', [
             'feeStructures' => $feeStructures,
             'gradeLevels' => $gradeLevels,
             'schoolYears' => $schoolYears,

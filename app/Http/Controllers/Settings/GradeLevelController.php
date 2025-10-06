@@ -67,7 +67,7 @@ class GradeLevelController extends Controller
             ->orderByDesc('school_year')
             ->pluck('school_year');
 
-        return Inertia::render('settings/academics/grade-levels/index', [
+    return Inertia::render('academics/grade-levels/index', [
             'gradeLevels' => $gradeLevels,
             'filters' => [
                 'school_year' => $schoolYear,

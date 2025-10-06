@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\FeeStructure;
+use App\Models\GradeLevel;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class FeeStructureSeeder extends Seeder
 {
@@ -14,62 +16,69 @@ class FeeStructureSeeder extends Seeder
     {
         $schoolYear = FeeStructure::currentSchoolYear();
 
-        // Elementary (Grades 1-6)
-        $elementaryFees = [
-            ['fee_type' => 'Tuition', 'amount' => 25000],
-            ['fee_type' => 'Miscellaneous', 'amount' => 5000],
-            ['fee_type' => 'Books', 'amount' => 3000],
+        $feeSchedules = [
+            [
+                'grades' => range(1, 6),
+                'fees' => [
+                    ['fee_type' => 'Tuition', 'amount' => 25000],
+                    ['fee_type' => 'Miscellaneous', 'amount' => 5000],
+                    ['fee_type' => 'Books', 'amount' => 3000],
+                ],
+            ],
+            [
+                'grades' => range(7, 10),
+                'fees' => [
+                    ['fee_type' => 'Tuition', 'amount' => 30000],
+                    ['fee_type' => 'Miscellaneous', 'amount' => 6000],
+                    ['fee_type' => 'Books', 'amount' => 4000],
+                    ['fee_type' => 'Laboratory', 'amount' => 2000],
+                ],
+            ],
+            [
+                'grades' => range(11, 12),
+                'fees' => [
+                    ['fee_type' => 'Tuition', 'amount' => 35000],
+                    ['fee_type' => 'Miscellaneous', 'amount' => 7000],
+                    ['fee_type' => 'Books', 'amount' => 5000],
+                    ['fee_type' => 'Laboratory', 'amount' => 3000],
+                ],
+            ],
         ];
 
-        for ($grade = 1; $grade <= 6; $grade++) {
-            foreach ($elementaryFees as $fee) {
-                FeeStructure::create([
-                    'grade_level' => "Grade {$grade}",
-                    'fee_type' => $fee['fee_type'],
-                    'amount' => $fee['amount'],
-                    'school_year' => $schoolYear,
-                    'is_active' => true,
-                ]);
-            }
-        }
+        $displayOrder = 1;
 
-        // Junior High (Grades 7-10)
-        $juniorHighFees = [
-            ['fee_type' => 'Tuition', 'amount' => 30000],
-            ['fee_type' => 'Miscellaneous', 'amount' => 6000],
-            ['fee_type' => 'Books', 'amount' => 4000],
-            ['fee_type' => 'Laboratory', 'amount' => 2000],
-        ];
+        foreach ($feeSchedules as $schedule) {
+            foreach ($schedule['grades'] as $gradeNumber) {
+                $gradeName = "Grade {$gradeNumber}";
+                $slug = Str::slug($gradeName);
 
-        for ($grade = 7; $grade <= 10; $grade++) {
-            foreach ($juniorHighFees as $fee) {
-                FeeStructure::create([
-                    'grade_level' => "Grade {$grade}",
-                    'fee_type' => $fee['fee_type'],
-                    'amount' => $fee['amount'],
-                    'school_year' => $schoolYear,
-                    'is_active' => true,
-                ]);
-            }
-        }
+                $gradeLevel = GradeLevel::updateOrCreate(
+                    ['name' => $gradeName],
+                    [
+                        'slug' => $slug,
+                        'display_order' => $displayOrder,
+                        'description' => null,
+                        'is_active' => true,
+                    ],
+                );
 
-        // Senior High (Grades 11-12)
-        $seniorHighFees = [
-            ['fee_type' => 'Tuition', 'amount' => 35000],
-            ['fee_type' => 'Miscellaneous', 'amount' => 7000],
-            ['fee_type' => 'Books', 'amount' => 5000],
-            ['fee_type' => 'Laboratory', 'amount' => 3000],
-        ];
+                $displayOrder++;
 
-        for ($grade = 11; $grade <= 12; $grade++) {
-            foreach ($seniorHighFees as $fee) {
-                FeeStructure::create([
-                    'grade_level' => "Grade {$grade}",
-                    'fee_type' => $fee['fee_type'],
-                    'amount' => $fee['amount'],
-                    'school_year' => $schoolYear,
-                    'is_active' => true,
-                ]);
+                foreach ($schedule['fees'] as $fee) {
+                    FeeStructure::updateOrCreate(
+                        [
+                            'grade_level_id' => $gradeLevel->id,
+                            'fee_type' => $fee['fee_type'],
+                            'school_year' => $schoolYear,
+                        ],
+                        [
+                            'amount' => $fee['amount'],
+                            'description' => $fee['description'] ?? null,
+                            'is_required' => $fee['is_required'] ?? true,
+                            'is_active' => $fee['is_active'] ?? true,
+                        ],
+                    );
+                }
             }
         }
     }
