@@ -52,8 +52,16 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function StudentsIndex() {
-    const { students, filters, gradeLevels, sectionsByGrade, auth, perPageOptions, perPage: currentPerPage, defaultPerPage } =
-        usePage<PageProps>().props;
+    const {
+        students,
+        filters,
+        gradeLevels,
+        sectionsByGrade,
+        auth,
+        perPageOptions,
+        perPage: currentPerPage,
+        defaultPerPage,
+    } = usePage<PageProps>().props;
 
     const [search, setSearch] = useState<string>(filters.search ?? '');
     const [gradeLevel, setGradeLevel] = useState<string>(filters.grade_level ?? '');
@@ -225,7 +233,7 @@ export default function StudentsIndex() {
                         <DataTable columns={studentsColumns} data={students.data} />
 
                         <div className="flex flex-col items-center justify-between gap-4 md:flex-row md:items-center">
-                            <div className="text-sm text-muted-foreground text-center md:text-left">
+                            <div className="text-center text-sm text-muted-foreground md:text-left">
                                 Showing <span className="font-medium text-foreground">{students.from ?? 0}</span> to{' '}
                                 <span className="font-medium text-foreground">{students.to ?? 0}</span> of{' '}
                                 <span className="font-medium text-foreground">{students.total ?? 0}</span> students

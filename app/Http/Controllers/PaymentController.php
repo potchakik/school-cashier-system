@@ -63,6 +63,9 @@ class PaymentController extends Controller
 
         // Transform data
         $payments->getCollection()->transform(function ($payment) {
+            $student = $payment->student;
+            $cashier = $payment->user;
+
             return [
                 'id' => $payment->id,
                 'receipt_number' => $payment->receipt_number,
@@ -71,15 +74,15 @@ class PaymentController extends Controller
                 'payment_purpose' => $payment->payment_purpose,
                 'payment_method' => $payment->payment_method,
                 'notes' => $payment->notes,
-                'student' => [
-                    'id' => $payment->student->id,
-                    'student_number' => $payment->student->student_number,
-                    'full_name' => $payment->student->full_name,
-                ],
-                'cashier' => [
-                    'id' => $payment->user->id,
-                    'name' => $payment->user->name,
-                ],
+                'student' => $student ? [
+                    'id' => $student->id,
+                    'student_number' => $student->student_number,
+                    'full_name' => $student->full_name,
+                ] : null,
+                'cashier' => $cashier ? [
+                    'id' => $cashier->id,
+                    'name' => $cashier->name,
+                ] : null,
                 'is_printed' => $payment->isPrinted(),
                 'created_at' => $payment->created_at,
             ];

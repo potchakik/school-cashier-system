@@ -1,10 +1,10 @@
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useEffect, useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { index as indexStudents, show as showStudent, update as updateStudent } from '@/routes/students';
@@ -31,10 +31,11 @@ interface Student {
 interface PageProps extends Record<string, unknown> {
     student: Student;
     gradeLevels: string[];
+    sectionsByGrade: Record<string, string[]>;
 }
 
 export default function EditStudent() {
-    const { student, gradeLevels } = usePage<PageProps>().props;
+    const { student, gradeLevels, sectionsByGrade } = usePage<PageProps>().props;
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -62,6 +63,20 @@ export default function EditStudent() {
         status: student.status,
         notes: student.notes || '',
     });
+
+    const filteredSections = useMemo(() => {
+        if (!data.grade_level) {
+            return [] as string[];
+        }
+
+        return sectionsByGrade?.[data.grade_level] ?? [];
+    }, [data.grade_level, sectionsByGrade]);
+
+    useEffect(() => {
+        if (data.section && !filteredSections.includes(data.section)) {
+            setData('section', '');
+        }
+    }, [data.section, filteredSections, setData]);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -173,13 +188,36 @@ export default function EditStudent() {
                                         <Label htmlFor="section">
                                             Section <span className="text-red-500">*</span>
                                         </Label>
-                                        <Input
-                                            id="section"
-                                            value={data.section}
-                                            onChange={(e) => setData('section', e.target.value)}
-                                            placeholder="A"
-                                            required
-                                        />
+                                        <Select
+                                            value={data.section || undefined}
+                                            onValueChange={(value) => setData('section', value)}
+                                            disabled={!data.grade_level || filteredSections.length === 0}
+                                        >
+                                            <SelectTrigger id="section">
+                                                <SelectValue
+                                                    placeholder={
+                                                        !data.grade_level
+                                                            ? 'Select grade level first'
+                                                            : filteredSections.length === 0
+                                                              ? 'No sections available'
+                                                              : 'Select section'
+                                                    }
+                                                />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {filteredSections.length > 0 ? (
+                                                    filteredSections.map((sectionOption) => (
+                                                        <SelectItem key={sectionOption} value={sectionOption}>
+                                                            Section {sectionOption}
+                                                        </SelectItem>
+                                                    ))
+                                                ) : (
+                                                    <SelectLabel className="text-muted-foreground">
+                                                        {data.grade_level ? 'No sections available' : 'Select a grade level first'}
+                                                    </SelectLabel>
+                                                )}
+                                            </SelectContent>
+                                        </Select>
                                         {errors.section && <p className="text-sm text-red-500">{errors.section}</p>}
                                     </div>
 

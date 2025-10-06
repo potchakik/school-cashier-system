@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateStudentRequest extends FormRequest
 {
@@ -21,10 +22,13 @@ class UpdateStudentRequest extends FormRequest
      */
     public function rules(): array
     {
-        $studentId = $this->route('student');
-
         return [
-            'student_number' => ['required', 'string', 'max:255', "unique:students,student_number,{$studentId}"],
+            'student_number' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('students', 'student_number')->ignore($this->route('student')),
+            ],
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],

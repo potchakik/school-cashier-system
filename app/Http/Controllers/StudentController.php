@@ -110,12 +110,22 @@ class StudentController extends Controller
     public function create()
     {
         $gradeLevels = GradeLevel::query()
+            ->with(['sections' => function ($query) {
+                $query->orderBy('display_order')->orderBy('name');
+            }])
             ->orderBy('display_order')
             ->orderBy('name')
-            ->pluck('name');
+            ->get();
+
+        $gradeLevelOptions = $gradeLevels->pluck('name');
+
+        $sectionsByGrade = $gradeLevels
+            ->mapWithKeys(fn ($grade) => [$grade->name => $grade->sections->pluck('name')->all()])
+            ->toArray();
 
         return Inertia::render('students/create', [
-            'gradeLevels' => $gradeLevels,
+            'gradeLevels' => $gradeLevelOptions,
+            'sectionsByGrade' => $sectionsByGrade,
         ]);
     }
 
@@ -183,14 +193,41 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
+        $student->load(['gradeLevel', 'section']);
+
         $gradeLevels = GradeLevel::query()
+            ->with(['sections' => function ($query) {
+                $query->orderBy('display_order')->orderBy('name');
+            }])
             ->orderBy('display_order')
             ->orderBy('name')
-            ->pluck('name');
+            ->get();
+
+        $gradeLevelOptions = $gradeLevels->pluck('name');
+
+        $sectionsByGrade = $gradeLevels
+            ->mapWithKeys(fn ($grade) => [$grade->name => $grade->sections->pluck('name')->all()])
+            ->toArray();
 
         return Inertia::render('students/edit', [
-            'student' => $student,
-            'gradeLevels' => $gradeLevels,
+            'student' => [
+                'id' => $student->id,
+                'student_number' => $student->student_number,
+                'first_name' => $student->first_name,
+                'middle_name' => $student->middle_name,
+                'last_name' => $student->last_name,
+                'grade_level' => $student->gradeLevel?->name ?? '',
+                'section' => $student->section?->name ?? '',
+                'contact_number' => $student->contact_number,
+                'email' => $student->email,
+                'parent_name' => $student->parent_name,
+                'parent_contact' => $student->parent_contact,
+                'parent_email' => $student->parent_email,
+                'status' => $student->status,
+                'notes' => $student->notes,
+            ],
+            'gradeLevels' => $gradeLevelOptions,
+            'sectionsByGrade' => $sectionsByGrade,
         ]);
     }
 
