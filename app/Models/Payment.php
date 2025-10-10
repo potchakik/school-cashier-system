@@ -65,13 +65,23 @@ class Payment extends Model
     public static function generateReceiptNumber(): string
     {
         $date = now()->format('Ymd');
-        $lastReceipt = static::whereDate('created_at', now()->toDateString())
-            ->orderBy('id', 'desc')
+        $today = now()->toDateString();
+
+        $lastReceipt = static::withTrashed()
+            ->whereDate('created_at', $today)
+            ->orderByDesc('receipt_number')
             ->first();
 
         $sequence = $lastReceipt ? (int) substr($lastReceipt->receipt_number, -4) + 1 : 1;
 
-        return sprintf('RCP-%s-%04d', $date, $sequence);
+        $candidate = sprintf('RCP-%s-%04d', $date, $sequence);
+
+        while (static::withTrashed()->where('receipt_number', $candidate)->exists()) {
+            $sequence++;
+            $candidate = sprintf('RCP-%s-%04d', $date, $sequence);
+        }
+
+        return $candidate;
     }
 
     /**
