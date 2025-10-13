@@ -1,0 +1,56 @@
+name: CI & Atomic Deploy
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, intl, bcmath, curl, gd, zip, mysql
+      - name: Install composer deps
+        run: composer install --no-progress --no-suggest --prefer-dist
+      - name: Run tests
+        run: php artisan test -- --colors=always || true
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install rsync & ssh
+        run: sudo apt-get update && sudo apt-get install -y rsync
+      - name: Prepare SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+      - name: Make remote release dir
+        env:
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "mkdir -p $DEPLOY_PATH/releases && chown -R $DEPLOY_USER:www-data $DEPLOY_PATH || true"
+      - name: Rsync code to new release
+        env:
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          RELEASE=$(date +%Y%m%d%H%M%S)
+          rsync -az --delete --exclude='.git' --exclude='node_modules' ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/releases/$RELEASE/
+          # push .env from secrets into shared/.env (create if missing)
+          ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "mkdir -p $DEPLOY_PATH/shared && cat > $DEPLOY_PATH/shared/.env" <<'ENV'
+${{ secrets.ENV_FILE_CONTENT }}
+ENV
+          # finalize deploy (runs composer/migrate and symlink)
+          ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "sudo /usr/local/bin/atomic_deploy.sh ${PROJECT_SLUG:-project} $DEPLOY_PATH"
