@@ -146,20 +146,46 @@ class PaymentController extends Controller
     {
         // If student_id is provided, pre-select the student
         $student = null;
+        $gradeLevelFees = [];
+
         if ($request->filled('student_id')) {
-            $student = Student::query()
-                ->with(['gradeLevel:id,name', 'section:id,name'])
-                ->find($request->student_id);
-            if ($student) {
+            $selectedStudent = Student::query()
+                ->with(['gradeLevel', 'section:id,name'])
+                ->find($request->integer('student_id'));
+
+            if ($selectedStudent) {
+                $selectedStudent->loadMissing([
+                    'gradeLevel.feeStructures' => function ($query) {
+                        $query->where('is_active', true)
+                            ->orderByDesc('is_required')
+                            ->orderBy('fee_type');
+                    },
+                ]);
+
+                $gradeLevelFeesCollection = $selectedStudent->gradeLevel?->feeStructures ?? collect();
+
+                $gradeLevelFees = $gradeLevelFeesCollection
+                    ->map(fn ($fee) => [
+                        'id' => $fee->id,
+                        'fee_type' => $fee->fee_type,
+                        'amount' => (float) $fee->amount,
+                        'description' => $fee->description,
+                        'is_required' => (bool) $fee->is_required,
+                        'school_year' => $fee->school_year,
+                    ])
+                    ->values()
+                    ->all();
+
                 $student = [
-                    'id' => $student->id,
-                    'student_number' => $student->student_number,
-                    'full_name' => $student->full_name,
-                    'grade_level' => $student->grade_level_name,
-                    'section' => $student->section_name,
-                    'balance' => $student->balance,
-                    'total_paid' => $student->total_paid,
-                    'expected_fees' => $student->expected_fees,
+                    'id' => $selectedStudent->id,
+                    'student_number' => $selectedStudent->student_number,
+                    'full_name' => $selectedStudent->full_name,
+                    'grade_level_id' => $selectedStudent->grade_level_id,
+                    'grade_level' => $selectedStudent->grade_level_name,
+                    'section' => $selectedStudent->section_name,
+                    'balance' => $selectedStudent->balance,
+                    'total_paid' => $selectedStudent->total_paid,
+                    'expected_fees' => $selectedStudent->expected_fees,
                 ];
             }
         }
@@ -205,6 +231,7 @@ class PaymentController extends Controller
             'students' => $students,
             'search' => $request->string('search')->toString(),
             'paymentMethods' => self::PAYMENT_METHOD_OPTIONS,
+            'gradeLevelFees' => $gradeLevelFees,
         ]);
     }
 
