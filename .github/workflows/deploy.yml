@@ -2,12 +2,12 @@ name: CI & Atomic Deploy
 
 on:
   push:
-    branches: ['main']
+    branches: ['master']
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     env:
       PROJECT_SLUG: ${{ vars.PROJECT_SLUG || 'project' }}
       # Allow non-standard SSH port via secret; defaults to 22
