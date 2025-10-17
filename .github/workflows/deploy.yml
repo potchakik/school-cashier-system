@@ -25,6 +25,13 @@ jobs:
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
 
+      - name: Prepare Laravel environment for build
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+          php artisan migrate --no-interaction --force
+
       - name: Debug Wayfinder
         run: php artisan wayfinder:generate --with-form
 
