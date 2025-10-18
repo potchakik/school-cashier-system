@@ -25,3 +25,20 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Backup and temporary files
+/backup-md-*/
+*.bak
+*.tmp
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Documentation build
+/docs/build
+/docs/.docusaurus
+/docs/node_modules

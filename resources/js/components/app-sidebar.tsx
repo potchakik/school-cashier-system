@@ -9,20 +9,15 @@ import { index as paymentsIndex } from '@/routes/payments';
 import { index as studentsIndex } from '@/routes/students';
 import { type NavGroup, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, CreditCard, Folder, GraduationCap, LayoutGrid, Receipt, Users } from 'lucide-react';
+import { CreditCard, Folder, GraduationCap, LayoutGrid, Receipt, Users } from 'lucide-react';
 import { useMemo } from 'react';
 import AppLogo from './app-logo';
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        title: 'GitHub',
+        href: 'https://github.com/mark-john-ignacio/school-cashier-system',
         icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
     },
 ];
 
