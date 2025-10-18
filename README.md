@@ -321,9 +321,9 @@ If you discover any security-related issues, please email **your-email@example.c
 
 ## 📸 Screenshots
 
-![Dashboard View](docs/screenshots/dashboard-view.png)
-![Payment Processing](docs/screenshots/payment-processing.png)
-![Student Management](docs/screenshots/student-management.png)
+![Dashboard View](/screenshots/dashboard-view.png)
+![Payment Processing](/screenshots/payment-processing.png)
+![Student Management](/screenshots/student-management.png)
 
 ---
 
