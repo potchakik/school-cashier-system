@@ -4,7 +4,10 @@ FROM serversideup/php:8.2-cli AS build
 
 # Install Node.js for frontend build
 USER root
-RUN apk add --no-cache nodejs npm
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /var/www/html
