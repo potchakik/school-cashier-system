@@ -1,8 +1,8 @@
 # Use ServerSideUp's production-ready PHP images optimized for Laravel
 # https://serversideup.net/open-source/docker-php/
-FROM serversideup/php:8.2-cli AS build
+FROM serversideup/php:8.2-fpm-nginx AS base
 
-# Install Node.js for frontend build
+# Install Node.js for building assets
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nodejs \
@@ -15,9 +15,9 @@ WORKDIR /var/www/html
 # Copy dependency files
 COPY composer.json composer.lock package.json package-lock.json ./
 
-# Install dependencies
+# Install PHP and Node dependencies
 RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-interaction \
-    && npm ci --only=production=false
+    && npm ci
 
 # Copy application code
 COPY . .
@@ -25,14 +25,14 @@ COPY . .
 # Generate optimized autoloader
 RUN composer dump-autoload --optimize --no-dev
 
-# Build frontend assets
+# Build frontend assets (Wayfinder will use existing generated files)
 RUN npm run build && npm run build:ssr
 
-# Production stage
-FROM serversideup/php:8.2-fpm-nginx
+# Set proper ownership
+RUN chown -R www-data:www-data /var/www/html
 
-# Copy application from build stage
-COPY --chown=www-data:www-data --from=build /var/www/html /var/www/html
+# Switch back to www-data user
+USER www-data
 
 # Set Laravel-specific environment variables
 ENV SSL_MODE=off \
