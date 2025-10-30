@@ -33,8 +33,21 @@ FROM php:8.2-cli-alpine AS frontend
 
 WORKDIR /app
 
-# Install Node.js
-RUN apk add --no-cache nodejs npm
+# Install Node.js and PHP extensions needed for Laravel/Wayfinder
+RUN apk add --no-cache \
+    nodejs \
+    npm \
+    libzip-dev \
+    oniguruma-dev \
+    libxml2-dev \
+    icu-dev \
+    sqlite-dev \
+    && docker-php-ext-install \
+    pdo_sqlite \
+    mbstring \
+    xml \
+    zip \
+    intl
 
 # Copy package files
 COPY package*.json ./
@@ -50,6 +63,14 @@ COPY routes ./routes
 COPY app ./app
 COPY bootstrap ./bootstrap
 COPY database ./database
+COPY storage ./storage
+
+# Create minimal .env for artisan to work
+RUN echo "APP_KEY=base64:R9s7m7tStGvzVneD3DPaJdn7t7dTml21uCE5x3VTwKk=" > .env \
+    && echo "APP_ENV=production" >> .env \
+    && echo "DB_CONNECTION=sqlite" >> .env \
+    && mkdir -p database \
+    && touch database/database.sqlite
 
 # Copy frontend source
 COPY resources ./resources
