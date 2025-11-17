@@ -20,9 +20,9 @@ const primaryCta = {
 };
 
 const socialLinks = [
-    { label: 'Facebook', href: 'https://www.facebook.com/DeiGratiaSchoolInc' },
-    { label: 'Instagram', href: 'https://www.instagram.com/deigratiaschool' },
-    { label: 'YouTube', href: 'https://www.youtube.com/@DeiGratiaSchool' },
+    { label: 'Facebook', href: 'https://www.facebook.com/DeiGratiaSchool/' },
+    // { label: 'Instagram', href: 'https://www.instagram.com/deigratiaschool' },
+    // { label: 'YouTube', href: 'https://www.youtube.com/@DeiGratiaSchool' },
 ];
 
 interface MainLayoutProps {
@@ -100,7 +100,8 @@ export default function MainLayout({ children, title, description, className }: 
                                 <span className="sr-only">Toggle menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" className="bg-white/95 px-6 pt-12 pb-10">
+                        <SheetContent side="left" className="bg-white/95 px-6 pt-12 pb-10 sm:max-w-sm" overlayClass="bg-slate-900/60">
+                            <div className="h-full overflow-y-auto">
                             <div className="mb-8 flex items-center gap-2 text-slate-900">
                                 {renderBrandSymbol()}
                                 <div>
@@ -108,12 +109,12 @@ export default function MainLayout({ children, title, description, className }: 
                                     <p className="text-lg font-semibold">Main Menu</p>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-2">
                                 {navigationLinks.map((link) => (
                                     <SheetClose asChild key={link.label}>
                                         <Link
                                             href={link.href}
-                                            className="rounded-md px-3 py-2 text-base font-medium text-slate-800 transition hover:bg-slate-100"
+                                            className="rounded-xl px-4 py-3 text-base font-medium text-slate-800 transition hover:bg-slate-100"
                                             prefetch
                                         >
                                             {link.label}
@@ -128,6 +129,16 @@ export default function MainLayout({ children, title, description, className }: 
                                     </Link>
                                 </Button>
                             </SheetClose>
+                            <div className="mt-6 space-y-1 text-sm text-slate-500">
+                                <p className="font-semibold text-slate-700">Need support?</p>
+                                <a href="tel:+63468630045" className="block rounded-lg bg-slate-100 px-3 py-2 font-medium text-slate-900">
+                                    (046) 863 0045
+                                </a>
+                                <a href="mailto:info@deigratia.edu.ph" className="block rounded-lg px-3 py-2 text-blue-700 underline">
+                                    info@deigratia.edu.ph
+                                </a>
+                            </div>
+                            </div>
                         </SheetContent>
                     </Sheet>
                 </div>

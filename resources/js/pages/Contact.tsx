@@ -27,9 +27,9 @@ const offices = [
 ];
 
 const socialLinks = [
-    { label: 'Facebook', href: 'https://www.facebook.com/DeiGratiaSchoolInc' },
-    { label: 'Instagram', href: 'https://www.instagram.com/deigratiaschool' },
-    { label: 'YouTube', href: 'https://www.youtube.com/@DeiGratiaSchool' },
+    { label: 'Facebook', href: 'https://www.facebook.com/DeiGratiaSchool/' },
+    // { label: 'Instagram', href: 'https://www.instagram.com/deigratiaschool' },
+    // { label: 'YouTube', href: 'https://www.youtube.com/@DeiGratiaSchool' },
 ];
 
 export default function Contact() {
@@ -94,18 +94,15 @@ export default function Contact() {
                             Guarded campus with secure drop-off and ample parking. Please bring a valid ID when entering the school grounds.
                         </p>
                         <div className="mt-6 overflow-hidden rounded-2xl">
-                            {/* <img
-                                src="https://placehold.co/700x400/0f172a/e2e8f0?text=Campus+Map"
-                                alt="Map to Dei Gratia School Inc."
-                                className="h-full w-full object-cover"
-                                loading="lazy"
-                            /> */}
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.9906906978554!2d120.84474023766656!3d14.342412163330053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33962afc3c48ea69%3A0xf6c3186f0d845d4!2sDei%20Gratia%20School%2C%20Inc.!5e1!3m2!1sen!2ssg!4v1763377047190!5m2!1sen!2ssg"
-                                width="1200"
-                                height="450"
-                                loading="lazy"
-                            ></iframe>
+                            <div className="relative w-full overflow-hidden pb-[65%]">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.9906906978554!2d120.84474023766656!3d14.342412163330053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33962afc3c48ea69%3A0xf6c3186f0d845d4!2sDei%20Gratia%20School%2C%20Inc.!5e1!3m2!1sen!2ssg!4v1763377047190!5m2!1sen!2ssg"
+                                    className="absolute inset-0 h-full w-full border-0"
+                                    loading="lazy"
+                                    allowFullScreen
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

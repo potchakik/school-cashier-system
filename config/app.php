@@ -17,6 +17,12 @@ return [
 
     'logo' => env('APP_LOGO', '/images/branding/logo.svg'),
 
+    'favicon' => env('APP_FAVICON', '/favicon.svg'),
+
+    'favicon_ico' => env('APP_FAVICON_ICO', '/favicon.ico'),
+
+    'apple_icon' => env('APP_APPLE_ICON', '/apple-touch-icon.png'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
