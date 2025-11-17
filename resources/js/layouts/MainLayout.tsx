@@ -43,8 +43,8 @@ export default function MainLayout({ children, title, description, className }: 
                 <meta head-key="description" name="description" content={seoDescription} />
             </Head>
 
-            <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
-                <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
+            <header className="sticky top-0 z-50 border-b border-white/60 bg-white/80 shadow-[0_1px_12px_rgba(15,23,42,0.08)] backdrop-blur supports-[backdrop-filter]:bg-white/65">
+                <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                     <Link href={home()} className="flex items-center gap-2" prefetch>
                         <span className="rounded-full bg-blue-100 p-2 text-blue-600">
                             <School className="h-5 w-5" />
@@ -54,11 +54,11 @@ export default function MainLayout({ children, title, description, className }: 
 
                     <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 md:flex">
                         {navigationLinks.map((link) => (
-                            <Link key={link.label} href={link.href} className="transition hover:text-blue-600" prefetch>
+                            <Link key={link.label} href={link.href} className="rounded-full px-3 py-1 transition hover:bg-blue-50 hover:text-blue-700" prefetch>
                                 {link.label}
                             </Link>
                         ))}
-                        <Button asChild className="bg-yellow-400 text-blue-950 shadow-md hover:bg-yellow-300">
+                        <Button asChild className="bg-yellow-400 text-blue-950 shadow-md ring-1 ring-yellow-300/40 hover:bg-yellow-300">
                             <Link href={primaryCta.href} prefetch>
                                 {primaryCta.label}
                             </Link>
@@ -72,7 +72,7 @@ export default function MainLayout({ children, title, description, className }: 
                                 <span className="sr-only">Toggle menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" className="bg-white px-6 pt-12 pb-10">
+                        <SheetContent side="left" className="bg-white/95 px-6 pt-12 pb-10">
                             <div className="mb-8 flex items-center gap-2 text-slate-900">
                                 <span className="rounded-full bg-blue-100 p-2 text-blue-600">
                                     <School className="h-5 w-5" />
@@ -109,8 +109,8 @@ export default function MainLayout({ children, title, description, className }: 
 
             <main className={cn('flex-1', className)}>{children}</main>
 
-            <footer className="mt-16 bg-blue-900 py-12 text-slate-100">
-                <div className="mx-auto w-full max-w-6xl px-4">
+            <footer className="mt-24 bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 py-14 text-slate-100">
+                <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
                     <div className="grid gap-10 md:grid-cols-3">
                         <div>
                             <div className="flex items-center gap-2 text-lg font-semibold">

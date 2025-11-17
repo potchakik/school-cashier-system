@@ -38,14 +38,34 @@ export default function Contact() {
             <section className="mx-auto w-full max-w-6xl px-4 py-16">
                 <div className="grid gap-10 lg:grid-cols-[1.15fr,0.85fr]">
                     <div className="space-y-6">
-                        <p className="text-sm font-semibold tracking-[0.4em] text-blue-500 uppercase">Contact</p>
-                        <h1 className="text-4xl font-semibold text-slate-900">We are here to serve your family.</h1>
-                        <p className="text-base leading-relaxed text-slate-600">
-                            Call, message, or visit us for enrollment assistance, campus tours, and student support. We respond within the same
-                            business day for inquiries sent before 4 PM.
-                        </p>
+                        <div className="relative overflow-hidden rounded-4xl border border-blue-200 bg-blue-50/70 p-8">
+                            <div className="absolute inset-0">
+                                <img
+                                    src="https://placehold.co/1200x700/1d4ed8/e2e8f0?text=Community+Support"
+                                    alt="Admissions counselors supporting a family"
+                                    className="h-full w-full object-cover"
+                                    loading="lazy"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-br from-blue-950/90 via-blue-900/70 to-sky-500/70" />
+                            </div>
+                            <div className="relative space-y-4 text-white">
+                                <p className="text-sm font-semibold tracking-[0.4em] uppercase text-sky-200">Contact</p>
+                                <h1 className="text-4xl font-semibold">We are here to serve your family.</h1>
+                                <p className="text-base leading-relaxed text-white/80">
+                                    Call, message, or visit us for enrollment assistance, campus tours, and student support. We respond within the same
+                                    business day for inquiries sent before 4 PM.
+                                </p>
+                                <Link
+                                    href={admissions()}
+                                    className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-3 text-base font-semibold text-white backdrop-blur transition hover:bg-white/30"
+                                >
+                                    <UserCheck className="h-5 w-5" />
+                                    Connect with Admissions
+                                </Link>
+                            </div>
+                        </div>
                         <div className="grid gap-4 sm:grid-cols-2">
-                            <Card className="border-slate-200/60 bg-white/90 shadow-sm">
+                            <Card className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
                                 <CardContent className="space-y-2 px-6 py-6">
                                     <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">Call Us</p>
                                     <div className="flex items-center gap-2 text-lg font-semibold text-slate-900">
@@ -55,7 +75,7 @@ export default function Contact() {
                                     <p className="text-sm text-slate-500">Mon-Fri • 7:30 AM - 5:00 PM</p>
                                 </CardContent>
                             </Card>
-                            <Card className="border-slate-200/60 bg-white/90 shadow-sm">
+                            <Card className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
                                 <CardContent className="space-y-2 px-6 py-6">
                                     <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">Email Us</p>
                                     <div className="flex items-center gap-2 text-lg font-semibold text-slate-900">
@@ -66,15 +86,8 @@ export default function Contact() {
                                 </CardContent>
                             </Card>
                         </div>
-                        <Link
-                            href={admissions()}
-                            className="inline-flex items-center gap-2 rounded-md bg-blue-900 px-5 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-blue-800"
-                        >
-                            <UserCheck className="h-5 w-5" />
-                            Connect with Admissions
-                        </Link>
                     </div>
-                    <div className="rounded-3xl border border-slate-200/70 bg-white/90 p-6 shadow-sm">
+                    <div className="rounded-4xl border border-slate-200/70 bg-white/95 p-6 shadow-xl">
                         <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Visit Us</p>
                         <h2 className="mt-2 text-2xl font-semibold text-slate-900">Blk 18&19, Ph1B Carissa Homes, Bagtas, Tanza, Cavite</h2>
                         <p className="mt-3 text-sm text-slate-600">
@@ -96,7 +109,10 @@ export default function Contact() {
                 <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Key Offices</p>
                 <div className="mt-6 grid gap-6 md:grid-cols-3">
                     {offices.map((office) => (
-                        <Card key={office.title} className="border-slate-200/60 bg-white/90 shadow-sm">
+                        <Card
+                            key={office.title}
+                            className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
+                        >
                             <CardContent className="space-y-3 px-6 py-6">
                                 <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">{office.title}</p>
                                 <p className="text-sm text-slate-600">{office.description}</p>
@@ -111,7 +127,7 @@ export default function Contact() {
             </section>
 
             <section className="mx-auto w-full max-w-6xl px-4 pb-24">
-                <div className="rounded-3xl border border-slate-200/70 bg-white/90 p-8 shadow-sm">
+                <div className="rounded-4xl border border-slate-200/70 bg-gradient-to-br from-white via-blue-50 to-blue-100 p-8 shadow-xl">
                     <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                         <div>
                             <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Stay Connected</p>
@@ -124,7 +140,7 @@ export default function Contact() {
                                     href={link.href}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-blue-500 hover:text-blue-600"
+                                    className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/30 px-4 py-2 text-sm font-semibold text-slate-700 backdrop-blur transition hover:border-blue-500 hover:bg-white/60 hover:text-blue-600"
                                 >
                                     <Send className="h-4 w-4" />
                                     {link.label}

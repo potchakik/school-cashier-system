@@ -72,7 +72,7 @@ export default function Academics() {
     return (
         <MainLayout title="Academics | Dei Gratia School Inc." className="bg-white">
             <section className="mx-auto w-full max-w-6xl px-4 py-16">
-                <div className="rounded-3xl bg-gradient-to-r from-blue-700 to-indigo-600 px-8 py-12 text-white shadow-xl">
+                <div className="rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-600 px-8 py-12 text-white shadow-2xl ring-1 ring-white/30">
                     <p className="text-sm tracking-[0.4em] text-white/80 uppercase">Academics</p>
                     <h1 className="mt-4 text-4xl font-semibold">Programs that evolve with every learner.</h1>
                     <p className="mt-4 max-w-3xl text-base text-white/90">
@@ -101,7 +101,10 @@ export default function Academics() {
                 <h2 className="mt-3 text-3xl font-semibold text-slate-900">Distinct pathways for every stage.</h2>
                 <div className="mt-10 grid gap-6 md:grid-cols-2">
                     {learningBands.map((band) => (
-                        <Card key={band.title} className="border-slate-200/60 bg-white/90 shadow-sm">
+                        <Card
+                            key={band.title}
+                            className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
+                        >
                             <CardHeader>
                                 <CardTitle className="text-2xl text-slate-900">{band.title}</CardTitle>
                                 <p className="mt-2 text-base text-slate-600">{band.description}</p>
@@ -124,7 +127,10 @@ export default function Academics() {
                 <h2 className="mt-3 text-3xl font-semibold text-slate-900">Learning beyond the classroom.</h2>
                 <div className="mt-10 grid gap-6 md:grid-cols-2">
                     {signaturePrograms.map((program) => (
-                        <Card key={program.title} className="border-slate-200/60 bg-white/90 shadow-sm">
+                        <Card
+                            key={program.title}
+                            className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
+                        >
                             <CardContent className="flex items-start gap-4 px-6 py-6">
                                 <div className="flex size-12 items-center justify-center rounded-full bg-blue-50 text-blue-700">
                                     <program.icon className="h-6 w-6" />
@@ -144,7 +150,10 @@ export default function Academics() {
                 <h2 className="mt-3 text-3xl font-semibold text-slate-900">Whole-child care.</h2>
                 <div className="mt-10 grid gap-6 md:grid-cols-3">
                     {supportServices.map((service) => (
-                        <Card key={service.title} className="border-slate-200/60 bg-white/90 shadow-sm">
+                        <Card
+                            key={service.title}
+                            className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
+                        >
                             <CardContent className="space-y-3 px-6 py-6 text-center">
                                 <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-blue-50 text-blue-700">
                                     <service.icon className="h-6 w-6" />

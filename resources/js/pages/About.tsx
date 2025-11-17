@@ -56,7 +56,7 @@ export default function About() {
     return (
         <MainLayout title="About | Dei Gratia School Inc." className="bg-white">
             <section className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-16 lg:flex-row lg:items-center">
-                <div className="flex-1 space-y-6 text-slate-800">
+                <div className="flex-1 space-y-6 rounded-[2.5rem] bg-gradient-to-br from-blue-50 to-white px-6 py-8 text-slate-800 shadow-xl ring-1 ring-blue-100">
                     <p className="text-sm font-semibold tracking-[0.4em] text-blue-500 uppercase">About Us</p>
                     <h1 className="text-4xl font-semibold text-slate-900">Rooted in faith. Driven by excellence.</h1>
                     <p className="text-base leading-relaxed text-slate-600">
@@ -73,7 +73,7 @@ export default function About() {
                         </Button>
                     </div>
                 </div>
-                <div className="flex-1 overflow-hidden rounded-3xl shadow-xl">
+                <div className="flex-1 overflow-hidden rounded-3xl shadow-2xl ring-1 ring-slate-100">
                     <img
                         src="https://placehold.co/800x600/1d4ed8/f8fafc?text=Dei+Gratia+Campus"
                         alt="Students collaborating inside Dei Gratia School"
@@ -85,7 +85,7 @@ export default function About() {
 
             <section className="mx-auto w-full max-w-6xl px-4 py-16">
                 <div className="grid gap-8 md:grid-cols-2">
-                    <Card className="border-slate-200/60 bg-white/90 shadow-sm">
+                    <Card className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                         <CardContent className="space-y-4 px-6 py-8">
                             <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Mission</p>
                             <h2 className="text-2xl font-semibold text-slate-900">Forming whole persons through Christ-centered education.</h2>
@@ -95,7 +95,7 @@ export default function About() {
                             </p>
                         </CardContent>
                     </Card>
-                    <Card className="border-slate-200/60 bg-white/90 shadow-sm">
+                    <Card className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                         <CardContent className="space-y-4 px-6 py-8">
                             <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Vision</p>
                             <h2 className="text-2xl font-semibold text-slate-900">A thriving community of future-ready servant leaders.</h2>
@@ -113,7 +113,7 @@ export default function About() {
                 <h2 className="mt-3 text-3xl font-semibold text-slate-900">A legacy of community firsts.</h2>
                 <div className="mt-10 space-y-6">
                     {milestones.map((milestone) => (
-                        <div key={milestone.year} className="rounded-3xl border border-slate-200/70 bg-white/90 p-6 shadow-sm">
+                        <div key={milestone.year} className="rounded-3xl border border-slate-200/70 bg-white/95 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                             <p className="text-sm font-semibold tracking-[0.5em] text-slate-500 uppercase">{milestone.year}</p>
                             <h3 className="mt-2 text-2xl font-semibold text-slate-900">{milestone.title}</h3>
                             <p className="mt-2 text-base text-slate-600">{milestone.description}</p>
@@ -127,7 +127,7 @@ export default function About() {
                 <h2 className="mt-3 text-3xl font-semibold text-slate-900">What anchors everything we do.</h2>
                 <div className="mt-10 grid gap-6 md:grid-cols-2">
                     {coreValues.map((value) => (
-                        <Card key={value.title} className="border-slate-200/60 bg-white/90 shadow-sm">
+                        <Card key={value.title} className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                             <CardContent className="flex items-start gap-4 px-6 py-6">
                                 <div className="flex size-12 items-center justify-center rounded-full bg-blue-50 text-blue-700">
                                     <value.icon className="h-6 w-6" />
