@@ -71,6 +71,290 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     home.form = homeForm
 /**
+ * @see routes/web.php:13
+ * @route '/about'
+ */
+export const about = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: about.url(options),
+    method: 'get',
+})
+
+about.definition = {
+    methods: ["get","head"],
+    url: '/about',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:13
+ * @route '/about'
+ */
+about.url = (options?: RouteQueryOptions) => {
+    return about.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:13
+ * @route '/about'
+ */
+about.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: about.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:13
+ * @route '/about'
+ */
+about.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: about.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:13
+ * @route '/about'
+ */
+    const aboutForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: about.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:13
+ * @route '/about'
+ */
+        aboutForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: about.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:13
+ * @route '/about'
+ */
+        aboutForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: about.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    about.form = aboutForm
+/**
+ * @see routes/web.php:17
+ * @route '/academics'
+ */
+export const academics = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: academics.url(options),
+    method: 'get',
+})
+
+academics.definition = {
+    methods: ["get","head"],
+    url: '/academics',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:17
+ * @route '/academics'
+ */
+academics.url = (options?: RouteQueryOptions) => {
+    return academics.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:17
+ * @route '/academics'
+ */
+academics.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: academics.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:17
+ * @route '/academics'
+ */
+academics.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: academics.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:17
+ * @route '/academics'
+ */
+    const academicsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: academics.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:17
+ * @route '/academics'
+ */
+        academicsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: academics.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:17
+ * @route '/academics'
+ */
+        academicsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: academics.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    academics.form = academicsForm
+/**
+ * @see routes/web.php:21
+ * @route '/admissions'
+ */
+export const admissions = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: admissions.url(options),
+    method: 'get',
+})
+
+admissions.definition = {
+    methods: ["get","head"],
+    url: '/admissions',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:21
+ * @route '/admissions'
+ */
+admissions.url = (options?: RouteQueryOptions) => {
+    return admissions.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:21
+ * @route '/admissions'
+ */
+admissions.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: admissions.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:21
+ * @route '/admissions'
+ */
+admissions.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: admissions.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:21
+ * @route '/admissions'
+ */
+    const admissionsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: admissions.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:21
+ * @route '/admissions'
+ */
+        admissionsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: admissions.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:21
+ * @route '/admissions'
+ */
+        admissionsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: admissions.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    admissions.form = admissionsForm
+/**
+ * @see routes/web.php:25
+ * @route '/contact'
+ */
+export const contact = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: contact.url(options),
+    method: 'get',
+})
+
+contact.definition = {
+    methods: ["get","head"],
+    url: '/contact',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:25
+ * @route '/contact'
+ */
+contact.url = (options?: RouteQueryOptions) => {
+    return contact.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:25
+ * @route '/contact'
+ */
+contact.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: contact.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:25
+ * @route '/contact'
+ */
+contact.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: contact.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:25
+ * @route '/contact'
+ */
+    const contactForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: contact.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:25
+ * @route '/contact'
+ */
+        contactForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: contact.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:25
+ * @route '/contact'
+ */
+        contactForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: contact.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    contact.form = contactForm
+/**
 * @see \App\Http\Controllers\DashboardController::dashboard
  * @see app/Http/Controllers/DashboardController.php:17
  * @route '/dashboard'

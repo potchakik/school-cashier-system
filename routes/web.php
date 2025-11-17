@@ -7,8 +7,24 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('Home');
 })->name('home');
+
+Route::get('/about', function () {
+    return Inertia::render('About');
+})->name('about');
+
+Route::get('/academics', function () {
+    return Inertia::render('Academics');
+})->name('academics');
+
+Route::get('/admissions', function () {
+    return Inertia::render('Admissions');
+})->name('admissions');
+
+Route::get('/contact', function () {
+    return Inertia::render('Contact');
+})->name('contact');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
