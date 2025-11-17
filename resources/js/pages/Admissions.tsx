@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import MainLayout from '@/layouts/MainLayout';
 import { admissions, contact } from '@/routes';
 import { Link } from '@inertiajs/react';
+import { motion } from 'framer-motion';
 import { CalendarCheck, ClipboardList, FileCheck2, PhoneCall, Sparkles, Users } from 'lucide-react';
 
 const steps = [
@@ -42,11 +43,40 @@ const tuitionHighlights = [
     { label: 'Senior High (GAS)', detail: 'Starts at ₱52,000 / year' },
 ];
 
+const fadeInUp = {
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0 },
+};
+
+const popIn = {
+    hidden: { opacity: 0, scale: 0.97 },
+    visible: { opacity: 1, scale: 1 },
+};
+
+const stagger = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.12,
+            delayChildren: 0.15,
+        },
+    },
+};
+
 export default function Admissions() {
     return (
         <MainLayout title="Admissions | Dei Gratia School Inc." className="bg-white">
-            <section className="mx-auto w-full max-w-6xl px-4 py-16">
-                <div className="relative overflow-hidden rounded-4xl border border-amber-100 bg-amber-50/70 px-8 py-12 text-blue-950 shadow-[0_30px_80px_-40px_rgba(15,23,42,.7)]">
+            <motion.section
+                className="mx-auto w-full max-w-6xl px-4 py-16"
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+            >
+                <motion.div
+                    className="relative overflow-hidden rounded-4xl border border-amber-100 bg-amber-50/70 px-8 py-12 text-blue-950 shadow-[0_30px_80px_-40px_rgba(15,23,42,.7)]"
+                    variants={popIn}
+                >
                     <div className="absolute inset-0">
                         <img
                             src="/images/marketing/admissions-team.jpg"
@@ -56,14 +86,14 @@ export default function Admissions() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/80 to-amber-500/70" />
                     </div>
-                    <div className="relative">
+                    <motion.div className="relative" variants={stagger}>
                         <p className="text-sm font-semibold tracking-[0.4em] text-amber-200 uppercase">Admissions</p>
                         <h1 className="mt-4 text-4xl font-semibold text-white">Enrollment designed around families.</h1>
                         <p className="mt-4 max-w-3xl text-base text-white/80">
                             We keep the process clear, compassionate, and responsive. Whether you are a returning family or a transferee, our team is
                             ready to guide you every step of the way.
                         </p>
-                        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                        <motion.div className="mt-10 flex flex-col gap-4 sm:flex-row" variants={fadeInUp}>
                             <Link
                                 href={contact()}
                                 className="inline-flex items-center justify-center rounded-full bg-white/90 px-6 py-3 text-base font-semibold text-blue-950 shadow-lg transition hover:bg-white"
@@ -78,38 +108,49 @@ export default function Admissions() {
                             >
                                 Apply Online
                             </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
+            </motion.section>
 
-            <section className="mx-auto w-full max-w-6xl px-4 pb-16">
+            <motion.section
+                className="mx-auto w-full max-w-6xl px-4 pb-16"
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+            >
                 <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Enrollment Steps</p>
                 <h2 className="mt-3 text-3xl font-semibold text-slate-900">Simple, guided process.</h2>
-                <div className="mt-10 grid gap-6 md:grid-cols-2">
+                <motion.div className="mt-10 grid gap-6 md:grid-cols-2" variants={stagger}>
                     {steps.map((step) => {
                         const Icon = step.icon;
                         return (
-                            <Card
-                                key={step.title}
-                                className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
-                            >
-                                <CardContent className="space-y-4 px-6 py-6">
-                                    <div className="flex items-center gap-3">
-                                        <div className="rounded-full bg-blue-50 p-2 text-blue-700">
-                                            <Icon className="h-5 w-5" />
+                            <motion.div key={step.title} variants={popIn}>
+                                <Card className="border-slate-200/60 bg-white/95 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
+                                    <CardContent className="space-y-4 px-6 py-6">
+                                        <div className="flex items-center gap-3">
+                                            <div className="rounded-full bg-blue-50 p-2 text-blue-700">
+                                                <Icon className="h-5 w-5" />
+                                            </div>
+                                            <h3 className="text-lg font-semibold text-slate-900">{step.title}</h3>
                                         </div>
-                                        <h3 className="text-lg font-semibold text-slate-900">{step.title}</h3>
-                                    </div>
-                                    <p className="text-sm text-slate-600">{step.description}</p>
-                                </CardContent>
-                            </Card>
+                                        <p className="text-sm text-slate-600">{step.description}</p>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
                         );
                     })}
-                </div>
-            </section>
+                </motion.div>
+            </motion.section>
 
-            <section className="mx-auto w-full max-w-6xl px-4 pb-16">
+            <motion.section
+                className="mx-auto w-full max-w-6xl px-4 pb-16"
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+            >
                 <div className="grid gap-8 lg:grid-cols-[2fr,1fr]">
                     <Card className="border-slate-200/60 bg-gradient-to-br from-white via-white to-blue-50 shadow-sm">
                         <CardContent className="space-y-5 px-6 py-8">
@@ -141,31 +182,39 @@ export default function Admissions() {
                         </CardContent>
                     </Card>
                 </div>
-            </section>
+            </motion.section>
 
-            <section className="mx-auto w-full max-w-6xl px-4 pb-24">
+            <motion.section
+                className="mx-auto w-full max-w-6xl px-4 pb-24"
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+            >
                 <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Tuition Highlights</p>
-                <div className="mt-6 grid gap-6 md:grid-cols-4">
+                <motion.div className="mt-6 grid gap-6 md:grid-cols-4" variants={stagger}>
                     {tuitionHighlights.map((item) => (
-                        <Card
-                            key={item.label}
-                            className="border-slate-200/60 bg-white/95 text-center shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
-                        >
-                            <CardContent className="space-y-2 px-6 py-6">
-                                <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">{item.label}</p>
-                                <p className="text-xl font-semibold text-slate-900">{item.detail}</p>
-                            </CardContent>
-                        </Card>
+                        <motion.div key={item.label} variants={popIn}>
+                            <Card className="border-slate-200/60 bg-white/95 text-center shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
+                                <CardContent className="space-y-2 px-6 py-6">
+                                    <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">{item.label}</p>
+                                    <p className="text-xl font-semibold text-slate-900">{item.detail}</p>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
                     ))}
-                </div>
-                <div className="mt-12 flex flex-col items-center gap-4 rounded-3xl border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-blue-100 px-8 py-10 text-center shadow-lg">
+                </motion.div>
+                <motion.div
+                    className="mt-12 flex flex-col items-center gap-4 rounded-3xl border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-blue-100 px-8 py-10 text-center shadow-lg"
+                    variants={fadeInUp}
+                >
                     <div className="rounded-full bg-white/70 p-3 text-blue-600 shadow-inner">
                         <PhoneCall className="h-8 w-8" />
                     </div>
                     <p className="text-lg font-semibold text-slate-900">Need assistance with requirements or scholarships?</p>
                     <p className="text-sm text-slate-600">Call us at (046) 863 0045 or email admissions@deigratia.edu.ph</p>
-                </div>
-            </section>
+                </motion.div>
+            </motion.section>
         </MainLayout>
     );
 }

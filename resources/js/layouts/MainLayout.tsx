@@ -3,6 +3,7 @@ import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/s
 import { cn } from '@/lib/utils';
 import { about, academics, admissions, contact, home } from '@/routes';
 import { Head, Link, usePage, type InertiaLinkProps } from '@inertiajs/react';
+import { motion } from 'framer-motion';
 import { Menu, School } from 'lucide-react';
 import { type PropsWithChildren } from 'react';
 
@@ -37,6 +38,11 @@ export default function MainLayout({ children, title, description, className }: 
     const brandName = branding.name ?? 'Dei Gratia School Inc.';
     const brandLogo = branding.logo;
 
+    const headerVariants = {
+        hidden: { opacity: 0, y: -24 },
+        visible: { opacity: 1, y: 0 },
+    };
+
     const seoTitle = title ?? `${brandName} | Excellence in Community Education`;
     const seoDescription =
         description ?? `${brandName} delivers faith-driven, community-focused K-12 education for future-ready learners in Tanza, Cavite.`;
@@ -68,7 +74,13 @@ export default function MainLayout({ children, title, description, className }: 
                 <meta head-key="description" name="description" content={seoDescription} />
             </Head>
 
-            <header className="sticky top-0 z-50 border-b border-white/60 bg-white/80 shadow-[0_1px_12px_rgba(15,23,42,0.08)] backdrop-blur supports-[backdrop-filter]:bg-white/65">
+            <motion.header
+                initial="hidden"
+                animate="visible"
+                variants={headerVariants}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+                className="sticky top-0 z-50 border-b border-white/60 bg-white/80 shadow-[0_1px_12px_rgba(15,23,42,0.08)] backdrop-blur supports-[backdrop-filter]:bg-white/65"
+            >
                 <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                     <Link href={home()} className="flex items-center gap-2" prefetch>
                         {renderBrandSymbol()}
@@ -95,54 +107,58 @@ export default function MainLayout({ children, title, description, className }: 
 
                     <Sheet>
                         <SheetTrigger asChild>
-                            <Button variant="outline" size="icon" className="md:hidden border-slate-300 text-slate-900 bg-white/80 backdrop-blur hover:bg-white">
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                className="border-slate-300 bg-white/80 text-slate-900 backdrop-blur hover:bg-white md:hidden"
+                            >
                                 <Menu className="h-5 w-5" />
                                 <span className="sr-only">Toggle menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" className="bg-white/95 px-6 pt-12 pb-10 sm:max-w-sm" overlayClass="bg-slate-900/60">
+                        <SheetContent side="left" className="bg-white/95 px-6 pt-12 pb-10 sm:max-w-sm">
                             <div className="h-full overflow-y-auto">
-                            <div className="mb-8 flex items-center gap-2 text-slate-900">
-                                {renderBrandSymbol()}
-                                <div>
-                                    <p className="text-sm tracking-wide text-slate-500 uppercase">{brandName}</p>
-                                    <p className="text-lg font-semibold">Main Menu</p>
+                                <div className="mb-8 flex items-center gap-2 text-slate-900">
+                                    {renderBrandSymbol()}
+                                    <div>
+                                        <p className="text-sm tracking-wide text-slate-500 uppercase">{brandName}</p>
+                                        <p className="text-lg font-semibold">Main Menu</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                {navigationLinks.map((link) => (
-                                    <SheetClose asChild key={link.label}>
-                                        <Link
-                                            href={link.href}
-                                            className="rounded-xl px-4 py-3 text-base font-medium text-slate-800 transition hover:bg-slate-100"
-                                            prefetch
-                                        >
-                                            {link.label}
+                                <div className="flex flex-col gap-2">
+                                    {navigationLinks.map((link) => (
+                                        <SheetClose asChild key={link.label}>
+                                            <Link
+                                                href={link.href}
+                                                className="rounded-xl px-4 py-3 text-base font-medium text-slate-800 transition hover:bg-slate-100"
+                                                prefetch
+                                            >
+                                                {link.label}
+                                            </Link>
+                                        </SheetClose>
+                                    ))}
+                                </div>
+                                <SheetClose asChild>
+                                    <Button asChild className="mt-8 w-full bg-yellow-400 text-blue-950 shadow-md hover:bg-yellow-300">
+                                        <Link href={primaryCta.href} prefetch>
+                                            {primaryCta.label}
                                         </Link>
-                                    </SheetClose>
-                                ))}
-                            </div>
-                            <SheetClose asChild>
-                                <Button asChild className="mt-8 w-full bg-yellow-400 text-blue-950 shadow-md hover:bg-yellow-300">
-                                    <Link href={primaryCta.href} prefetch>
-                                        {primaryCta.label}
-                                    </Link>
-                                </Button>
-                            </SheetClose>
-                            <div className="mt-6 space-y-1 text-sm text-slate-500">
-                                <p className="font-semibold text-slate-700">Need support?</p>
-                                <a href="tel:+63468630045" className="block rounded-lg bg-slate-100 px-3 py-2 font-medium text-slate-900">
-                                    (046) 863 0045
-                                </a>
-                                <a href="mailto:info@deigratia.edu.ph" className="block rounded-lg px-3 py-2 text-blue-700 underline">
-                                    info@deigratia.edu.ph
-                                </a>
-                            </div>
+                                    </Button>
+                                </SheetClose>
+                                <div className="mt-6 space-y-1 text-sm text-slate-500">
+                                    <p className="font-semibold text-slate-700">Need support?</p>
+                                    <a href="tel:+63468630045" className="block rounded-lg bg-slate-100 px-3 py-2 font-medium text-slate-900">
+                                        (046) 863 0045
+                                    </a>
+                                    <a href="mailto:info@deigratia.edu.ph" className="block rounded-lg px-3 py-2 text-blue-700 underline">
+                                        info@deigratia.edu.ph
+                                    </a>
+                                </div>
                             </div>
                         </SheetContent>
                     </Sheet>
                 </div>
-            </header>
+            </motion.header>
 
             <main className={cn('flex-1', className)}>{children}</main>
 
