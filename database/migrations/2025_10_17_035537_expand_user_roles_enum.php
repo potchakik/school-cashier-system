@@ -43,7 +43,15 @@ return new class extends Migration {
             return;
         }
 
-        DB::statement('ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check');
+        // Check if the constraint exists before dropping
+        $constraintExists = DB::table('information_schema.check_constraints')
+            ->where('CONSTRAINT_NAME', 'users_role_check')
+            ->where('CONSTRAINT_SCHEMA', DB::getDatabaseName())
+            ->exists();
+
+        if ($constraintExists) {
+            DB::statement('ALTER TABLE users DROP CHECK users_role_check');
+        }
     }
 
     private function coerceInvalidRoles(array $allowedRoles, string $fallback): void
