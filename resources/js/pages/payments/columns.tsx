@@ -44,6 +44,7 @@ export const paymentsColumns: ColumnDef<PaymentListItem>[] = [
         accessorKey: 'receipt_number',
         header: ({ column }) => <DataTableColumnHeader column={column} title="Receipt" />,
         cell: ({ row }) => {
+            console.log("🚀 ~ row:", row.original)
             return (
                 <div className="flex flex-col gap-1">
                     <span className="font-medium text-foreground">{row.original.receipt_number}</span>

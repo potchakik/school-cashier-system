@@ -141,6 +141,9 @@ const wizardSteps = [
  */
 export default function CreatePayment() {
     const { student, paymentPurposes, students, search, paymentMethods, gradeLevelFees, auth } = usePage<PaymentCreationProps>().props;
+    console.log("🚀 ~ CreatePayment ~ students:", gradeLevelFees )
+    console.log("🚀 ~ CreatePayment ~ student:", student)
+
 
     // Default to today's date for payment
     const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
@@ -162,6 +165,7 @@ export default function CreatePayment() {
         initialSearch: search,
         gradeLevelFees,
     });
+    console.log("🚀 ~ CreatePayment ~ wizard:", wizard)
 
     // Sync form student_id with wizard state when student changes
     useMemo(() => {

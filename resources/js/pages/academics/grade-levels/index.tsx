@@ -104,6 +104,7 @@ const formatCurrency = (amount: number): string => `₱${amount.toLocaleString(u
 
 export default function GradeLevelsPage() {
     const { gradeLevels, filters, schoolYears } = usePage<PageProps>().props;
+    console.log("🚀 ~ GradeLevelsPage ~ gradeLevels:", gradeLevels)
 
     const [gradeLevelDialog, setGradeLevelDialog] = useState<GradeLevelDialogState | null>(null);
     const [sectionDialog, setSectionDialog] = useState<SectionDialogState | null>(null);

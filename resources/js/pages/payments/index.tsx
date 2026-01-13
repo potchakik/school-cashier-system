@@ -82,7 +82,8 @@ export default function PaymentsIndex() {
         defaultPerPage,
         auth,
     } = usePage<PageProps>().props;
-
+    
+    console.log("🚀 ~ PaymentsIndex ~ payments:", payments)
     const [search, setSearch] = useState<string>(filters.search ?? '');
     const [dateFrom, setDateFrom] = useState<string>(filters.date_from ?? '');
     const [dateTo, setDateTo] = useState<string>(filters.date_to ?? '');

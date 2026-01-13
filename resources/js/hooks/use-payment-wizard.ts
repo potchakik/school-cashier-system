@@ -39,6 +39,8 @@ interface UsePaymentWizardOptions {
 }
 
 export function usePaymentWizard({ initialStudent, initialSearch, gradeLevelFees }: UsePaymentWizardOptions) {
+  console.log("🚀 ~ usePaymentWizard ~ initialStudent:", initialStudent)
+  
     // Student selection state
     const [selectedStudent, setSelectedStudent] = useState<StudentSummary | null>(initialStudent);
     const [searchQuery, setSearchQuery] = useState(initialSearch);
@@ -156,6 +158,7 @@ export function usePaymentWizard({ initialStudent, initialSearch, gradeLevelFees
      * Select a student and fetch their details
      */
     const handleSelectStudent = (student: StudentSummary) => {
+        console.log("🚀 ~ handleSelectStudent ~ student:", selectedStudent, student)
         if (selectedStudent?.id === student.id) {
             setStep(2);
             return;

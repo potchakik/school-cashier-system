@@ -57,6 +57,7 @@ interface PageProps extends Record<string, unknown> {
 
 export default function PaymentShow() {
     const { payment, auth, flash } = usePage<PageProps>().props;
+    console.log("🚀 ~ PaymentShow ~ payment:", payment)
 
     const breadcrumbs: BreadcrumbItem[] = [
         {

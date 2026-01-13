@@ -35,6 +35,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function CreateStudent() {
     const { gradeLevels, sectionsByGrade } = usePage<PageProps>().props;
+    console.log("🚀 ~ CreateStudent ~ sectionsByGrade:", sectionsByGrade)
+    console.log("🚀 ~ CreateStudent ~ gradeLevels:", gradeLevels)
 
     const { data, setData, post, processing, errors } = useForm({
         student_number: '',

@@ -86,6 +86,9 @@ interface BalanceSummaryProps {
 }
 
 export function BalanceSummary({ outstandingBalance, expectedFees = 0, totalPaid = 0 }: BalanceSummaryProps) {
+    console.log("🚀 ~ BalanceSummary ~ totalPaid:", totalPaid)
+    console.log("🚀 ~ BalanceSummary ~ expectedFees:", expectedFees)
+    console.log("🚀 ~ BalanceSummary ~ outstandingBalance:", outstandingBalance)
     const balanceTone = getBalanceToneClass(outstandingBalance);
 
     return (
