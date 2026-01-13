@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Inertia::share('branding', fn () => [
-            'name' => config('app.name', 'Dei Gratia School Inc.'),
+            'name' => config('app.name', 'Ipil Shepherd Montessori.'),
             'logo' => config('app.logo'),
         ]);
     }

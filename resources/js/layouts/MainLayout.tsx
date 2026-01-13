@@ -21,7 +21,7 @@ const primaryCta = {
 };
 
 const socialLinks = [
-    { label: 'Facebook', href: 'https://www.facebook.com/DeiGratiaSchool/' },
+    { label: 'Facebook', href: 'https://www.facebook.com/ipilshepherd.montessori/' },
     // { label: 'Instagram', href: 'https://www.instagram.com/deigratiaschool' },
     // { label: 'YouTube', href: 'https://www.youtube.com/@DeiGratiaSchool' },
 ];
@@ -35,7 +35,7 @@ interface MainLayoutProps {
 export default function MainLayout({ children, title, description, className }: PropsWithChildren<MainLayoutProps>) {
     const { props } = usePage<{ branding?: { name?: string; logo?: string } }>();
     const branding = props.branding ?? {};
-    const brandName = branding.name ?? 'Dei Gratia School Inc.';
+    const brandName = 'Ipil Shepherd Montessori';
     const brandLogo = branding.logo;
 
     const headerVariants = {
@@ -45,7 +45,7 @@ export default function MainLayout({ children, title, description, className }: 
 
     const seoTitle = title ?? `${brandName} | Excellence in Community Education`;
     const seoDescription =
-        description ?? `${brandName} delivers faith-driven, community-focused K-12 education for future-ready learners in Tanza, Cavite.`;
+        description ?? `${brandName} delivers faith-driven, community-focused K-12 education for future-ready learners in Ipil, Zamboanga Sibugay.`;
 
     const renderBrandSymbol = (variant: 'default' | 'footer' = 'default') => {
         if (brandLogo) {
@@ -170,12 +170,12 @@ export default function MainLayout({ children, title, description, className }: 
                                 {renderBrandSymbol('footer')}
                                 {brandName}
                             </div>
-                            <p className="mt-4 text-sm leading-relaxed text-blue-100">Blk 18&amp;19, Ph1B Carissa Homes, Bagtas, Tanza, Cavite</p>
+                            <p className="mt-4 text-sm leading-relaxed text-blue-100">Purok Jerusalem, Ipil, 7001 Zamboanga Sibugay</p>
                             <a href="tel:+63468630045" className="mt-2 block text-sm font-medium text-blue-100 hover:text-yellow-200">
-                                Phone: (046) 863 0045
+                                Phone: Test phone
                             </a>
-                            <a href="mailto:info@deigratia.edu.ph" className="block text-sm font-medium text-blue-100 hover:text-yellow-200">
-                                Email: info@deigratia.edu.ph
+                            <a href="mailto:info@ipilshepherdmontessori.edu.ph" className="block text-sm font-medium text-blue-100 hover:text-yellow-200">
+                                Email: info@ipilshepherdmontessori.edu.ph
                             </a>
                         </div>
                         <div>
@@ -211,7 +211,7 @@ export default function MainLayout({ children, title, description, className }: 
                         </div>
                     </div>
                     <p className="mt-10 border-t border-white/20 pt-6 text-center text-xs text-blue-200">
-                        © {new Date().getFullYear()} Dei Gratia School Inc. All rights reserved.
+                        © {new Date().getFullYear()} Ipil Shephered Montessori School. All rights reserved.
                     </p>
                 </div>
             </footer>

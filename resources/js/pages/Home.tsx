@@ -72,11 +72,11 @@ const stagger = {
 
 export default function Home() {
     return (
-        <MainLayout title="Dei Gratia School Inc. | Home" className="bg-gradient-to-b from-white via-slate-50 to-white">
+        <MainLayout title="Ipil Shepherd Montessori. | Home" className="bg-gradient-to-b from-white via-slate-50 to-white">
             <section className="relative isolate flex min-h-[65vh] items-center overflow-hidden rounded-b-[3.5rem] bg-slate-900 shadow-[0_25px_60px_rgba(15,23,42,0.35)]">
                 <img
                     src="/images/marketing/home-hero.jpg"
-                    alt="Students of Dei Gratia School Inc."
+                    alt="Students of Ipil Shepherd Montessori."
                     className="absolute inset-0 h-full w-full object-cover"
                     loading="lazy"
                 />
@@ -88,13 +88,13 @@ export default function Home() {
                     animate="visible"
                 >
                     <motion.p className="text-xs tracking-[0.45em] text-slate-200 uppercase" variants={fadeInUp}>
-                        Dei Gratia School Inc.
+                        Ipil Shepherd Montessori.
                     </motion.p>
                     <motion.h1 className="text-3xl leading-tight font-semibold sm:text-5xl sm:leading-tight" variants={fadeInUp}>
                         Nurturing Minds, Building Futures
                     </motion.h1>
                     <motion.p className="max-w-3xl text-base text-slate-100/90 sm:text-lg" variants={fadeInUp}>
-                        Providing quality, community-focused K-12 education in Tanza, Cavite since 1998.
+                        Providing quality, community-focused K-12 education in Ipil, Zamboanga Sibugay since 1998.
                     </motion.p>
                     <motion.div className="flex flex-col gap-4 sm:flex-row" variants={fadeInUp}>
                         <Button asChild className="bg-yellow-400 text-blue-950 shadow-lg ring-1 ring-yellow-200/40 hover:bg-yellow-300">
@@ -135,7 +135,7 @@ export default function Home() {
                 <div className="grid gap-10 md:grid-cols-2 md:items-center">
                     <motion.div className="overflow-hidden rounded-3xl shadow-xl ring-1 ring-slate-100" variants={popIn}>
                         <img
-                            src="/images/marketing/home-campus.jpg"
+                            src="/images/marketing/montessori-campus.jpg"
                             alt="Dei Gratia School campus"
                             className="h-full w-full object-cover"
                             loading="lazy"
@@ -143,9 +143,9 @@ export default function Home() {
                     </motion.div>
                     <motion.div className="space-y-4 text-slate-700" variants={fadeInUp}>
                         <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">About Us</p>
-                        <h2 className="text-3xl font-semibold text-slate-900">Welcome to Dei Gratia School Inc.</h2>
+                        <h2 className="text-3xl font-semibold text-slate-900">Welcome to Ipil Shepherd Montessori.</h2>
                         <p className="text-base leading-relaxed text-slate-600">
-                            Since 1998, Dei Gratia School Inc. has delivered faith-centered, learner-driven education that empowers students to grow
+                            Since 2018, Ipil Shepherd Montessori. has delivered faith-centered, learner-driven education that empowers students to grow
                             academically, socially, and spiritually. Our mission is to champion future-ready leaders through rigorous academics,
                             compassionate mentorship, and service to the local community.
                         </p>
@@ -184,7 +184,7 @@ export default function Home() {
             <section className="mx-auto mt-20 w-full max-w-6xl px-4 pb-20">
                 <div className="text-center">
                     <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Why Choose Us</p>
-                    <h2 className="mt-3 text-3xl font-semibold text-slate-900">Why Choose Dei Gratia?</h2>
+                    <h2 className="mt-3 text-3xl font-semibold text-slate-900">Why Choose Ipil Shephered Montessori School?</h2>
                     <p className="mt-2 text-base text-slate-600">
                         A trusted partner for families who value excellence, character, and community care.
                     </p>

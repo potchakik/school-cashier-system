@@ -9,25 +9,25 @@ import { BookOpenCheck, GraduationCap, HeartHandshake, UsersRound } from 'lucide
 
 const milestones = [
     {
-        year: 1998,
+        year: 2018,
         title: 'School Founded',
-        description: 'Dei Gratia School Inc. opened its first preschool and elementary classes with two classrooms and 60 pioneering learners.',
+        description: 'Ipil Shepherd Montessori. opened its first preschool and elementary',
     },
-    {
-        year: 2005,
-        title: 'Junior High Expansion',
-        description: 'Expanded to include Grades 7-10, integrating laboratory sciences and campus ministry programs.',
-    },
-    {
-        year: 2016,
-        title: 'Senior High Launch',
-        description: 'Introduced the General Academic Strand (GAS) with career bridges and industry mentorships.',
-    },
-    {
-        year: 2024,
-        title: 'Campus Modernization',
-        description: 'Completed the Learning Innovation Center with modern science labs, e-library, and collaboration studios.',
-    },
+    // {
+    //     year: 2005,
+    //     title: 'Junior High Expansion',
+    //     description: 'Expanded to include Grades 7-10, integrating laboratory sciences and campus ministry programs.',
+    // },
+    // {
+    //     year: 2016,
+    //     title: 'Senior High Launch',
+    //     description: 'Introduced the General Academic Strand (GAS) with career bridges and industry mentorships.',
+    // },
+    // {
+    //     year: 2024,
+    //     title: 'Campus Modernization',
+    //     description: 'Completed the Learning Innovation Center with modern science labs, e-library, and collaboration studios.',
+    // },
 ];
 
 const coreValues = [
@@ -75,7 +75,7 @@ const stagger = {
 
 export default function About() {
     return (
-        <MainLayout title="About | Dei Gratia School Inc." className="bg-white">
+        <MainLayout title="About | Ipil Shepherd Montessori." className="bg-white">
             <motion.section
                 className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-16 lg:flex-row lg:items-center"
                 variants={stagger}
@@ -90,7 +90,7 @@ export default function About() {
                     <p className="text-sm font-semibold tracking-[0.4em] text-blue-500 uppercase">About Us</p>
                     <h1 className="text-4xl font-semibold text-slate-900">Rooted in faith. Driven by excellence.</h1>
                     <p className="text-base leading-relaxed text-slate-600">
-                        Dei Gratia School Inc. is a home-grown K-12 institution serving families in Tanza, Cavite. For more than two decades, we have
+                        Ipil Shepherd Montessori. is a home-grown K-12 institution serving families in Ipil, Zamboanga Sibugay. For more than two decades, we have
                         nurtured students to become confident communicators, compassionate leaders, and curious innovators who impact their
                         communities for the common good.
                     </p>
@@ -110,7 +110,7 @@ export default function About() {
                 <motion.div className="flex-1 overflow-hidden rounded-3xl shadow-2xl ring-1 ring-slate-100" variants={popIn}>
                     <img
                         src="/images/marketing/about-collab.jpg"
-                        alt="Students collaborating inside Dei Gratia School"
+                        alt="Students collaborating inside Ipil Shepherd Montessori."
                         className="h-full w-full object-cover"
                         loading="lazy"
                     />
@@ -201,7 +201,7 @@ export default function About() {
                     <p className="text-lg font-semibold">
                         "Education is our shared mission—between families, teachers, and the God who calls us to serve."
                     </p>
-                    <p className="mt-2 text-sm tracking-[0.4em] text-white/80 uppercase">Administrator, Dei Gratia School Inc.</p>
+                    <p className="mt-2 text-sm tracking-[0.4em] text-white/80 uppercase">Administrator, Ipil Shepherd Montessori.</p>
                 </motion.div>
             </motion.section>
         </MainLayout>

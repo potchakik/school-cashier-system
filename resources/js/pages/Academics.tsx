@@ -91,7 +91,7 @@ const stagger = {
 
 export default function Academics() {
     return (
-        <MainLayout title="Academics | Dei Gratia School Inc." className="bg-white">
+        <MainLayout title="Academics | Ipil Shepherd Montessori." className="bg-white">
             <motion.section
                 className="mx-auto w-full max-w-6xl px-4 py-16"
                 variants={fadeInUp}

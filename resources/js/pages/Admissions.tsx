@@ -1,3 +1,5 @@
+// Tuition highlights array
+
 import { Card, CardContent } from '@/components/ui/card';
 import MainLayout from '@/layouts/MainLayout';
 import { admissions, contact } from '@/routes';
@@ -36,11 +38,11 @@ const requirements = [
     'For transferees: Form 137 / SF10',
 ];
 
-const tuitionHighlights = [
-    { label: 'Preschool', detail: 'Starts at ₱35,000 / year' },
-    { label: 'Elementary', detail: 'Starts at ₱42,000 / year' },
-    { label: 'Junior High', detail: 'Starts at ₱48,000 / year' },
-    { label: 'Senior High (GAS)', detail: 'Starts at ₱52,000 / year' },
+
+const tuitionHighlights: { label: string; detail: string }[] = [
+    { label: 'Nursery to Grade 3', detail: 'Starts at ₱3,960 / year' },
+    { label: 'Grade 4 to Grade 6', detail: 'Starts at ₱4,500 / year' },
+    { label: 'JHS and SHS', detail: 'Starts at ₱1,250 / year' },
 ];
 
 const fadeInUp = {
@@ -65,7 +67,7 @@ const stagger = {
 
 export default function Admissions() {
     return (
-        <MainLayout title="Admissions | Dei Gratia School Inc." className="bg-white">
+        <MainLayout title="Admissions | Ipil Shepherd Montessori." className="bg-white">
             <motion.section
                 className="mx-auto w-full max-w-6xl px-4 py-16"
                 variants={fadeInUp}
@@ -101,7 +103,7 @@ export default function Admissions() {
                                 Schedule a Visit
                             </Link>
                             <a
-                                href="https://forms.gle/DeiGratiaEnrollment"
+                                href="https://forms.gle/IpilShepherdMontessori"
                                 target="_blank"
                                 rel="noreferrer"
                                 className="inline-flex items-center justify-center rounded-full border border-white/80 px-6 py-3 text-base font-semibold text-white transition hover:bg-white/10"
@@ -192,17 +194,17 @@ export default function Admissions() {
                 viewport={{ once: true, amount: 0.2 }}
             >
                 <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Tuition Highlights</p>
-                <motion.div className="mt-6 grid gap-6 md:grid-cols-4" variants={stagger}>
-                    {tuitionHighlights.map((item) => (
-                        <motion.div key={item.label} variants={popIn}>
-                            <Card className="border-slate-200/60 bg-white/95 text-center shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
-                                <CardContent className="space-y-2 px-6 py-6">
-                                    <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">{item.label}</p>
-                                    <p className="text-xl font-semibold text-slate-900">{item.detail}</p>
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    ))}
+                <motion.div className="mt-6 grid gap-6 justify-center" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }} variants={stagger}>
+                        {tuitionHighlights.map((item) => (
+                            <motion.div key={item.label} variants={popIn}>
+                                <Card className="border-slate-200/60 bg-white/95 text-center shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
+                                    <CardContent className="space-y-2 px-6 py-6">
+                                        <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">{item.label}</p>
+                                        <p className="text-xl font-semibold text-slate-900">{item.detail}</p>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+                        ))}
                 </motion.div>
                 <motion.div
                     className="mt-12 flex flex-col items-center gap-4 rounded-3xl border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-blue-100 px-8 py-10 text-center shadow-lg"
@@ -212,7 +214,7 @@ export default function Admissions() {
                         <PhoneCall className="h-8 w-8" />
                     </div>
                     <p className="text-lg font-semibold text-slate-900">Need assistance with requirements or scholarships?</p>
-                    <p className="text-sm text-slate-600">Call us at (046) 863 0045 or email admissions@deigratia.edu.ph</p>
+                    <p className="text-sm text-slate-600">Call us at 0948 140 1092 or email admissions@ipilshepherdmontessori.edu.ph</p>
                 </motion.div>
             </motion.section>
         </MainLayout>

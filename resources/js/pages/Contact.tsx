@@ -55,7 +55,7 @@ const stagger = {
 
 export default function Contact() {
     return (
-        <MainLayout title="Contact | Dei Gratia School Inc." className="bg-white">
+        <MainLayout title="Contact | Ipil Shepherd Montessori." className="bg-white">
             <motion.section
                 className="mx-auto w-full max-w-6xl px-4 py-16"
                 variants={fadeInUp}
@@ -122,19 +122,19 @@ export default function Contact() {
                     </div>
                     <motion.div className="rounded-4xl border border-slate-200/70 bg-white/95 p-6 shadow-xl" variants={popIn}>
                         <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Visit Us</p>
-                        <h2 className="mt-2 text-2xl font-semibold text-slate-900">Blk 18&19, Ph1B Carissa Homes, Bagtas, Tanza, Cavite</h2>
+                        <h2 className="mt-2 text-2xl font-semibold text-slate-900">Blk 18&19, Ph1B Carissa Homes, Bagtas, Ipil, Zamboanga Sibugay</h2>
                         <p className="mt-3 text-sm text-slate-600">
                             Guarded campus with secure drop-off and ample parking. Please bring a valid ID when entering the school grounds.
                         </p>
                         <div className="mt-6 overflow-hidden rounded-2xl">
                             <div className="relative w-full overflow-hidden pb-[65%]">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.9906906978554!2d120.84474023766656!3d14.342412163330053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33962afc3c48ea69%3A0xf6c3186f0d845d4!2sDei%20Gratia%20School%2C%20Inc.!5e1!3m2!1sen!2ssg!4v1763377047190!5m2!1sen!2ssg"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2973.864668659064!2d122.58224515878953!3d7.773140182687281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3253d862a3f7ada5%3A0x987c018dca2b6646!2sQHFJ%2B7W2%2C%20Ipil%2C%207001%20Zamboanga%20Sibugay!5e1!3m2!1sen!2sph!4v1768282380559!5m2!1sen!2sph"
                                     className="absolute inset-0 h-full w-full border-0"
-                                    loading="lazy"
                                     allowFullScreen
                                     referrerPolicy="no-referrer-when-downgrade"
-                                />
+                                    title="School Location Map"
+                                /> 
                             </div>
                         </div>
                     </motion.div>
