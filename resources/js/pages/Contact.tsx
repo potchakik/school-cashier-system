@@ -9,28 +9,28 @@ import { Mail, MapPin, Phone, Send, UserCheck } from 'lucide-react';
 const offices = [
     {
         title: 'Registrar & Records',
-        contact: 'registrar@deigratia.edu.ph',
+        contact: 'registrar@ipilshepheredmontessori.edu.ph',
         schedule: 'Mon-Fri • 8:00 AM - 4:30 PM',
         description: 'Enrollment documents, student records, and credential requests.',
     },
     {
         title: 'Guidance & Wellness',
-        contact: 'guidance@deigratia.edu.ph',
+        contact: 'guidance@ipilshepheredmontessori.edu.ph',
         schedule: 'Mon-Fri • 8:00 AM - 4:00 PM',
         description: 'Counseling appointments, referrals, and parent conferences.',
     },
     {
         title: 'Finance Office',
-        contact: 'finance@deigratia.edu.ph',
+        contact: 'finance@ipilshepheredmontessori.edu.ph',
         schedule: 'Mon-Fri • 8:00 AM - 5:00 PM',
         description: 'Payment schedules, scholarship queries, and official receipts.',
     },
 ];
 
 const socialLinks = [
-    { label: 'Facebook', href: 'https://www.facebook.com/DeiGratiaSchool/' },
-    // { label: 'Instagram', href: 'https://www.instagram.com/deigratiaschool' },
-    // { label: 'YouTube', href: 'https://www.youtube.com/@DeiGratiaSchool' },
+    { label: 'Facebook', href: 'https://www.facebook.com/ipilshepherd.montessori/' },
+    // { label: 'Instagram', href: 'https://www.instagram.com/ipilshepherd.montessori/' },
+    // { label: 'YouTube', href: 'https://www.youtube.com/@IpilShepherdMontessori' },
 ];
 
 const fadeInUp = {
@@ -122,7 +122,7 @@ export default function Contact() {
                     </div>
                     <motion.div className="rounded-4xl border border-slate-200/70 bg-white/95 p-6 shadow-xl" variants={popIn}>
                         <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Visit Us</p>
-                        <h2 className="mt-2 text-2xl font-semibold text-slate-900">Blk 18&19, Ph1B Carissa Homes, Bagtas, Ipil, Zamboanga Sibugay</h2>
+                        <h2 className="mt-2 text-2xl font-semibold text-slate-900">Purok Jerusalem, Don Andress, Ipil, Zamboanga Sibugay</h2>
                         <p className="mt-3 text-sm text-slate-600">
                             Guarded campus with secure drop-off and ample parking. Please bring a valid ID when entering the school grounds.
                         </p>
