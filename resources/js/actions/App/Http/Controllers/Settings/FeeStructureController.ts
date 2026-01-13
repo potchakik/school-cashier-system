@@ -141,7 +141,7 @@ store.form = storeForm
 * @see app/Http/Controllers/Settings/FeeStructureController.php:97
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-export const update = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -156,7 +156,7 @@ update.definition = {
 * @see app/Http/Controllers/Settings/FeeStructureController.php:97
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-update.url = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { feeStructure: args }
     }
@@ -189,7 +189,7 @@ update.url = (args: { feeStructure: number | { id: number } } | [feeStructure: n
 * @see app/Http/Controllers/Settings/FeeStructureController.php:97
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-update.put = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -199,7 +199,7 @@ update.put = (args: { feeStructure: number | { id: number } } | [feeStructure: n
 * @see app/Http/Controllers/Settings/FeeStructureController.php:97
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-const updateForm = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+const updateForm = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PUT',
@@ -214,7 +214,7 @@ const updateForm = (args: { feeStructure: number | { id: number } } | [feeStruct
 * @see app/Http/Controllers/Settings/FeeStructureController.php:97
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-updateForm.put = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+updateForm.put = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: update.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'PUT',
@@ -231,7 +231,7 @@ update.form = updateForm
 * @see app/Http/Controllers/Settings/FeeStructureController.php:116
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-export const destroy = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -246,7 +246,7 @@ destroy.definition = {
 * @see app/Http/Controllers/Settings/FeeStructureController.php:116
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-destroy.url = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { feeStructure: args }
     }
@@ -279,7 +279,7 @@ destroy.url = (args: { feeStructure: number | { id: number } } | [feeStructure: 
 * @see app/Http/Controllers/Settings/FeeStructureController.php:116
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-destroy.delete = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -289,7 +289,7 @@ destroy.delete = (args: { feeStructure: number | { id: number } } | [feeStructur
 * @see app/Http/Controllers/Settings/FeeStructureController.php:116
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-const destroyForm = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+const destroyForm = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: destroy.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'DELETE',
@@ -304,7 +304,7 @@ const destroyForm = (args: { feeStructure: number | { id: number } } | [feeStruc
 * @see app/Http/Controllers/Settings/FeeStructureController.php:116
 * @route '/admin/academics/fee-structures/{feeStructure}'
 */
-destroyForm.delete = (args: { feeStructure: number | { id: number } } | [feeStructure: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+destroyForm.delete = (args: { feeStructure: string | number | { id: string | number } } | [feeStructure: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
     action: destroy.url(args, {
         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
             _method: 'DELETE',
