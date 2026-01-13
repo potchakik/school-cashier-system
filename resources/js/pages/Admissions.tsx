@@ -81,7 +81,7 @@ export default function Admissions() {
                 >
                     <div className="absolute inset-0">
                         <img
-                            src="/images/marketing/admissions-team.jpg"
+                            src="/images/marketing/admission-montessori.jpg"
                             alt="Admissions team assisting families"
                             className="h-full w-full object-cover"
                             loading="lazy"

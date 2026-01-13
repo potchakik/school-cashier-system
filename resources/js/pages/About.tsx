@@ -109,7 +109,7 @@ export default function About() {
                 </motion.div>
                 <motion.div className="flex-1 overflow-hidden rounded-3xl shadow-2xl ring-1 ring-slate-100" variants={popIn}>
                     <img
-                        src="/images/marketing/about-collab.jpg"
+                        src="/images/marketing/kids-branding.jpg"
                         alt="Students collaborating inside Ipil Shepherd Montessori."
                         className="h-full w-full object-cover"
                         loading="lazy"
