@@ -75,7 +75,7 @@ export default function Home() {
         <MainLayout title="Ipil Shepherd Montessori. | Home" className="bg-gradient-to-b from-white via-slate-50 to-white">
             <section className="relative isolate flex min-h-[65vh] items-center overflow-hidden rounded-b-[3.5rem] bg-slate-900 shadow-[0_25px_60px_rgba(15,23,42,0.35)]">
                 <img
-                    src="/images/marketing/home-hero.jpg"
+                    src="/images/marketing/montessori-marketing.jpg"
                     alt="Students of Ipil Shepherd Montessori."
                     className="absolute inset-0 h-full w-full object-cover"
                     loading="lazy"
