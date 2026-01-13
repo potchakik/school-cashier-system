@@ -9,7 +9,7 @@ import { BookOpenCheck, GraduationCap, HeartHandshake, UsersRound } from 'lucide
 
 const milestones = [
     {
-        year: 2018,
+        year: 2013,
         title: 'School Founded',
         description: 'Ipil Shepherd Montessori. opened its first preschool and elementary',
     },

@@ -44,9 +44,9 @@ const differentiators = [
 ];
 
 const impactStats = [
-    { label: 'Years of Service', value: '26+' },
-    { label: 'Learners Served', value: '1,200+' },
-    { label: 'Faculty Mentors', value: '80+' },
+    { label: 'Years of Service', value: '12+' },
+    { label: 'Learners Served', value: '1000+' },
+    { label: 'Faculty Mentors', value: '20+' },
     { label: 'Average Class Size', value: '25' },
 ];
 
@@ -88,7 +88,7 @@ export default function Home() {
                     animate="visible"
                 >
                     <motion.p className="text-xs tracking-[0.45em] text-slate-200 uppercase" variants={fadeInUp}>
-                        Ipil Shepherd Montessori.
+                        Ipil Shepherd Montessori
                     </motion.p>
                     <motion.h1 className="text-3xl leading-tight font-semibold sm:text-5xl sm:leading-tight" variants={fadeInUp}>
                         Nurturing Minds, Building Futures
@@ -145,7 +145,7 @@ export default function Home() {
                         <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">About Us</p>
                         <h2 className="text-3xl font-semibold text-slate-900">Welcome to Ipil Shepherd Montessori.</h2>
                         <p className="text-base leading-relaxed text-slate-600">
-                            Since 2018, Ipil Shepherd Montessori. has delivered faith-centered, learner-driven education that empowers students to grow
+                            Since 2013, Ipil Shepherd Montessori. has delivered faith-centered, learner-driven education that empowers students to grow
                             academically, socially, and spiritually. Our mission is to champion future-ready leaders through rigorous academics,
                             compassionate mentorship, and service to the local community.
                         </p>

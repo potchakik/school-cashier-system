@@ -9,28 +9,28 @@ import { Mail, MapPin, Phone, Send, UserCheck } from 'lucide-react';
 const offices = [
     {
         title: 'Registrar & Records',
-        contact: 'registrar@deigratia.edu.ph',
+        contact: 'registrar@ipilshepherdmontessori.edu.ph',
         schedule: 'Mon-Fri • 8:00 AM - 4:30 PM',
         description: 'Enrollment documents, student records, and credential requests.',
     },
     {
         title: 'Guidance & Wellness',
-        contact: 'guidance@deigratia.edu.ph',
+        contact: 'guidance@ipilshepherdmontessori.edu.ph',
         schedule: 'Mon-Fri • 8:00 AM - 4:00 PM',
         description: 'Counseling appointments, referrals, and parent conferences.',
     },
     {
         title: 'Finance Office',
-        contact: 'finance@deigratia.edu.ph',
+        contact: 'finance@ipilshepherdmontessori.edu.ph',
         schedule: 'Mon-Fri • 8:00 AM - 5:00 PM',
         description: 'Payment schedules, scholarship queries, and official receipts.',
     },
 ];
 
 const socialLinks = [
-    { label: 'Facebook', href: 'https://www.facebook.com/DeiGratiaSchool/' },
-    // { label: 'Instagram', href: 'https://www.instagram.com/deigratiaschool' },
-    // { label: 'YouTube', href: 'https://www.youtube.com/@DeiGratiaSchool' },
+    { label: 'Facebook', href: 'https://www.facebook.com/IpilShepherdMontessori/' },
+    // { label: 'Instagram', href: 'https://www.instagram.com/ipilshepherdmontessori' },
+    // { label: 'YouTube', href: 'https://www.youtube.com/@IpilShepherdMontessori' },
 ];
 
 const fadeInUp = {
@@ -100,7 +100,7 @@ export default function Contact() {
                                         <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">Call Us</p>
                                         <div className="flex items-center gap-2 text-lg font-semibold text-slate-900">
                                             <Phone className="h-4 w-4 text-blue-600" />
-                                            <a href="tel:+63468630045">(046) 863 0045</a>
+                                            <a href="phone:0917 304 7198">0917 304 7198</a>
                                         </div>
                                         <p className="text-sm text-slate-500">Mon-Fri • 7:30 AM - 5:00 PM</p>
                                     </CardContent>
@@ -112,7 +112,7 @@ export default function Contact() {
                                         <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">Email Us</p>
                                         <div className="flex items-center gap-2 text-lg font-semibold text-slate-900">
                                             <Mail className="h-4 w-4 text-blue-600" />
-                                            <a href="mailto:info@deigratia.edu.ph">info@deigratia.edu.ph</a>
+                                            <a href="mailto:info@ipilShepherdMontessori.edu.ph">info@ipilShepherdMontessori.edu.ph</a>
                                         </div>
                                         <p className="text-sm text-slate-500">We reply within the day.</p>
                                     </CardContent>
@@ -122,7 +122,7 @@ export default function Contact() {
                     </div>
                     <motion.div className="rounded-4xl border border-slate-200/70 bg-white/95 p-6 shadow-xl" variants={popIn}>
                         <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Visit Us</p>
-                        <h2 className="mt-2 text-2xl font-semibold text-slate-900">Blk 18&19, Ph1B Carissa Homes, Bagtas, Ipil, Zamboanga Sibugay</h2>
+                        <h2 className="mt-2 text-2xl font-semibold text-slate-900">Purok Jerusalem, Don Andress, Ipil, Zamboanga Sibugay</h2>
                         <p className="mt-3 text-sm text-slate-600">
                             Guarded campus with secure drop-off and ample parking. Please bring a valid ID when entering the school grounds.
                         </p>
