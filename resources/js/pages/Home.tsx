@@ -145,7 +145,7 @@ export default function Home() {
                         <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">About Us</p>
                         <h2 className="text-3xl font-semibold text-slate-900">Welcome to Ipil Shepherd Montessori.</h2>
                         <p className="text-base leading-relaxed text-slate-600">
-                            Since 2018, Ipil Shepherd Montessori. has delivered faith-centered, learner-driven education that empowers students to grow
+                            Since 2013, Ipil Shepherd Montessori. has delivered faith-centered, learner-driven education that empowers students to grow
                             academically, socially, and spiritually. Our mission is to champion future-ready leaders through rigorous academics,
                             compassionate mentorship, and service to the local community.
                         </p>
