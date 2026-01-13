@@ -209,7 +209,7 @@ sudo systemctl restart nginx
 
 ```bash
 sudo apt install certbot python3-certbot-nginx -y
-sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+sudo certbot --nginx -d ipil-shephered-montessori.com -d www.ipil-shephered-montessori.com
 ```
 
 ### Option 2: Laravel Forge
