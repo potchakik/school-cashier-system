@@ -68,7 +68,7 @@ export default function Contact() {
                         <motion.div className="relative overflow-hidden rounded-4xl border border-blue-200 bg-blue-50/70 p-8" variants={popIn}>
                             <div className="absolute inset-0">
                                 <img
-                                    src="/images/marketing/contact-support.jpg"
+                                    src="/images/marketing/montessori-marketing-2.jpg"
                                     alt="Admissions counselors supporting a family"
                                     className="h-full w-full object-cover"
                                     loading="lazy"
