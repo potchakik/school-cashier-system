@@ -90,7 +90,7 @@ export default function About() {
                     <p className="text-sm font-semibold tracking-[0.4em] text-blue-500 uppercase">About Us</p>
                     <h1 className="text-4xl font-semibold text-slate-900">Rooted in faith. Driven by excellence.</h1>
                     <p className="text-base leading-relaxed text-slate-600">
-                        Ipil Shepherd Montessori. is a home-grown K-12 institution serving families in Ipil, Zamboanga Sibugay. For more than two decades, we have
+                        Ipil Shepherd Montessori. is a home-grown K-12 institution serving families in Ipil, Zamboanga Sibugay. For more than a decade, we have
                         nurtured students to become confident communicators, compassionate leaders, and curious innovators who impact their
                         communities for the common good.
                     </p>
