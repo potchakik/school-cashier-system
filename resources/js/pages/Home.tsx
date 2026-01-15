@@ -94,7 +94,7 @@ export default function Home() {
                         Nurturing Minds, Building Futures
                     </motion.h1>
                     <motion.p className="max-w-3xl text-base text-slate-100/90 sm:text-lg" variants={fadeInUp}>
-                        Providing quality, community-focused K-12 education in Ipil, Zamboanga Sibugay since 1998.
+                        Providing quality, community-focused K-12 education in Ipil, Zamboanga Sibugay since 2013.
                     </motion.p>
                     <motion.div className="flex flex-col gap-4 sm:flex-row" variants={fadeInUp}>
                         <Button asChild className="bg-yellow-400 text-blue-950 shadow-lg ring-1 ring-yellow-200/40 hover:bg-yellow-300">
