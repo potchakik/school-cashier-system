@@ -2,7 +2,9 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import MainLayout from '@/layouts/MainLayout';
-import { admissions, contact } from '@/routes';
+import { contact } from '@/routes';
+import TuitionMatrixModal from '@/components/TuitionMatrixModal';
+import React, { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { CalendarCheck, ClipboardList, FileCheck2, PhoneCall, Sparkles, Users } from 'lucide-react';
@@ -66,6 +68,7 @@ const stagger = {
 };
 
 export default function Admissions() {
+    const [selected, setSelected] = useState<number | null>(null);
     return (
         <MainLayout title="Admissions | Ipil Shepherd Montessori." className="bg-white">
             <motion.section
@@ -86,7 +89,7 @@ export default function Admissions() {
                             className="h-full w-full object-cover"
                             loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/80 to-amber-500/70" />
+                        <div className="absolute inset-0 bg-linear-to-r from-blue-950/90 via-blue-900/80 to-amber-500/70" />
                     </div>
                     <motion.div className="relative" variants={stagger}>
                         <p className="text-sm font-semibold tracking-[0.4em] text-amber-200 uppercase">Admissions</p>
@@ -154,7 +157,7 @@ export default function Admissions() {
                 viewport={{ once: true, amount: 0.2 }}
             >
                 <div className="grid gap-8 lg:grid-cols-[2fr,1fr]">
-                    <Card className="border-slate-200/60 bg-gradient-to-br from-white via-white to-blue-50 shadow-sm">
+                    <Card className="border-slate-200/60 bg-linear-to-br from-white via-white to-blue-50 shadow-sm">
                         <CardContent className="space-y-5 px-6 py-8">
                             <h2 className="text-2xl font-semibold text-slate-900">Requirements</h2>
                             <div className="grid gap-3 text-sm text-slate-600">
@@ -167,20 +170,14 @@ export default function Admissions() {
                             </div>
                         </CardContent>
                     </Card>
-                    <Card className="border-blue-100 bg-gradient-to-b from-blue-900 to-blue-700 text-white shadow-lg">
+                    <Card className="border-blue-100 bg-linear-to-b from-blue-900 to-blue-700 text-white shadow-lg">
                         <CardContent className="space-y-4 px-6 py-8">
                             <h2 className="text-2xl font-semibold">FAPE-ESC & Discounts</h2>
                             <p className="text-sm text-white/80">
                                 Preschool to JHS learners may avail of sibling discounts. Junior High and Senior High students can apply for FAPE-ESC
                                 and SHS vouchers during enrollment.
                             </p>
-                            <Link
-                                href={admissions()}
-                                className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
-                            >
-                                <ClipboardList className="h-4 w-4" />
-                                View Tuition Matrix
-                            </Link>
+                            {/* Tuition Matrix button removed, now handled by Tuition Highlights below */}
                         </CardContent>
                     </Card>
                 </div>
@@ -195,19 +192,26 @@ export default function Admissions() {
             >
                 <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">Tuition Highlights</p>
                 <motion.div className="mt-6 grid gap-6 justify-center" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }} variants={stagger}>
-                        {tuitionHighlights.map((item) => (
-                            <motion.div key={item.label} variants={popIn}>
-                                <Card className="border-slate-200/60 bg-white/95 text-center shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
-                                    <CardContent className="space-y-2 px-6 py-6">
-                                        <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">{item.label}</p>
-                                        <p className="text-xl font-semibold text-slate-900">{item.detail}</p>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
+                    {tuitionHighlights.map((item, idx) => (
+                        <motion.div key={item.label} variants={popIn}>
+                            <button
+                                type="button"
+                                className="w-full border-slate-200/60 bg-white/95 text-center shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => setSelected(idx)}
+                                aria-label={`View details for ${item.label}`}
+                            >
+                                <div className="space-y-2 px-6 py-6">
+                                    <p className="text-sm font-semibold tracking-wide text-slate-500 uppercase">{item.label}</p>
+                                    <p className="text-xl font-semibold text-slate-900">{item.detail}</p>
+                                </div>
+                            </button>
+                        </motion.div>
+                    ))}
                 </motion.div>
+                <TuitionMatrixModal selected={selected} setSelected={setSelected} />
                 <motion.div
-                    className="mt-12 flex flex-col items-center gap-4 rounded-3xl border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-blue-100 px-8 py-10 text-center shadow-lg"
+                    className="mt-12 flex flex-col items-center gap-4 rounded-3xl border border-blue-100 bg-linear-to-br from-white via-blue-50 to-blue-100 px-8 py-10 text-center shadow-lg"
                     variants={fadeInUp}
                 >
                     <div className="rounded-full bg-white/70 p-3 text-blue-600 shadow-inner">
